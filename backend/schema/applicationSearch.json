@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/applicationSearch.json",
+    "type": "object",
+    "properties": {
+      "userId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "grantId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "status": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      }
+    },
+    "additionalProperties": true
+  }
+  

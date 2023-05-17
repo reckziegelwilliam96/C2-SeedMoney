@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/grantNew.json",
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "description": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "amount": {
+        "type": "number",
+        "minimum": 0
+      }
+    },
+    "additionalProperties": false,
+    "required": ["title", "description", "amount"]
+  }
+  
