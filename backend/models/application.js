@@ -16,7 +16,54 @@ class Application {
       return result.rows[0];
     }
   
-    // Similar methods for get, update, and remove go here...
-  }
+    static async get(applicationID) {
+        const result = await db.query(
+          `SELECT applicationID, userID, grantID, applicationStatus, applicationSubmissionDate, applicationResponseDate
+           FROM applications
+           WHERE applicationID = $1`,
+          [applicationID],
+        );
+        const application = result.rows[0];
+    
+        if (!application) throw new NotFoundError(`No application: ${applicationID}`);
+    
+        return user;
+      }
+    
+      static async update(applicationID, data) {
+        const { setCols, values } = sqlForPartialUpdate(
+          data,
+          {
+            applicationStatus: "applicationStatus",
+            applicationSubmissionDate: "applicationSubmissionDate",
+            applicationResponseData: "applicationResponseDate"
+          });
+        const appIDVarIdx = "$" + (values.length + 1);
+    
+        const querySql = `UPDATE applications 
+                          SET ${setCols} 
+                          WHERE applicationID = ${appIDVarIdx} 
+                          RETURNING applicationID, userID, grantID, applicationStatus, applicationSubmissionDate, applicationResponseDate`;
+        const result = await db.query(querySql, [...values, applicationID]);
+        const application = result.rows[0];
+    
+        if (!application) throw new NotFoundError(`No user: ${applicationID}`);
+    
+        return application;
+      }
+    
+      static async remove(applicationID) {
+        const result = await db.query(
+          `DELETE
+           FROM applications
+           WHERE applicationID = $1
+           RETURNING applicationID`,
+          [applicationID]);
+        const application = result.rows[0];
+    
+        if (!application) throw new NotFoundError(`No user: ${applicationID}`);
+      }
+}
+
 
 module.exports = Application;
