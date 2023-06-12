@@ -3,22 +3,51 @@
     "$id": "http://example.com/grantNew.json",
     "type": "object",
     "properties": {
-      "title": {
-        "type": "string",
-        "minLength": 1,
-        "maxLength": 100
-      },
-      "description": {
-        "type": "string",
-        "minLength": 1,
-        "maxLength": 500
-      },
-      "amount": {
-        "type": "number",
-        "minimum": 0
-      }
+        "grant_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+        },
+        "application_window": {
+            "type": "boolean"
+        },
+        "program_description": {
+            "type": "string",
+            "minLength": 1
+        },
+        "applicant_eligibility": {
+            "type": "string",
+            "minLength": 1
+        },
+        "eligible_area": {
+            "type": "string",
+            "minLength": 1
+        },
+        "use_of_funds": {
+            "type": "string",
+            "minLength": 1
+        },
+        "grant_terms": {
+            "type": "string",
+            "minLength": 1
+        },
+        "getting_started": {
+            "type": "string",
+            "minLength": 1
+        },
+        "contact_information": {
+            "type": "string",
+            "minLength": 1
+        },
+        "governing_law": {
+            "type": "string",
+            "minLength": 1
+        },
+        "program_id": {
+            "type": "number",
+            "minimum": 1
+        }
     },
     "additionalProperties": false,
-    "required": ["title", "description", "amount"]
-  }
-  
+    "required": ["grant_name", "application_window", "program_description", "applicant_eligibility", "eligible_area", "use_of_funds", "grant_terms", "getting_started", "contact_information", "governing_law", "program_id"]
+}

@@ -6,15 +6,15 @@ const { sqlForPartialUpdate } = require("../helpers/sql");
 
 
 class Grant {
-    static async create({ grantID, grantName, grantDescription, grantAmount, applicationDeadline, eligibilityRequirements }) {
-      const result = await db.query(
-        `INSERT INTO grants (grantID, grantName, grantDescription, grantAmount, applicationDeadline, eligibilityRequirements)
-         VALUES ($1, $2, $3, $4, $5, $6)
-         RETURNING grantID, grantName, grantDescription, grantAmount, applicationDeadline, eligibilityRequirements`,
-        [grantID, grantName, grantDescription, grantAmount, applicationDeadline, eligibilityRequirements],
-      );
-  
-      return result.rows[0];
+      static async create(data) {
+        const result = await db.query(
+            `INSERT INTO grants (grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id, grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id`, 
+            [data.grant_name, data.application_window, data.programDescription, data.applicantEligibility, data.eligibleArea, data.useOfFunds, data.grantTerms, data.gettingStarted, data.contactInformation, data.governingLaw, data.program_id]
+        );
+        let newGrant = result.rows[0];
+        
+        return new Grant(newGrant.id, newGrant.grant_name, newGrant.application_window, newGrant.program_description, newGrant.applicant_eligibility, newGrant.eligible_area, newGrant.use_of_funds, newGrant.grant_terms, newGrant.getting_started, newGrant.contact_information, newGrant.governing_law, newGrant.program_id);
     }
   
     static async get(grantID) {

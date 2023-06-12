@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/farmUpdate.json",
+    "type": "object",
+    "properties": {
+        "size": {"type": "number", "minimum": 0},
+        "years_of_experience": {"type": "number", "minimum": 0},
+        "types_of_crops": {"type": "array", "items": {"type": "string"}},
+        "organic_certification": {"type": "boolean"},
+        "sustainability_practices": {"type": "string"},
+        "annual_farm_revenue": {"type": "number", "minimum": 0},
+        "profitability": {"type": "number", "minimum": 0},
+        "farm_address": {"type": "string"},
+        "farm_city": {"type": "string"},
+        "farm_state": {"type": "string"},
+        "farm_zip_code": {"type": "string"},
+        "filing_status": {"type": "string"},
+        "tax_forms_filed": {"type": "array", "items": {"type": "string"}},
+        "previous_application": {"type": "boolean"},
+        "grant_outcome": {"type": "string"},
+        "business_id": {"type": "string"}
+    },
+    "additionalProperties": true
+}

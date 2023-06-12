@@ -1,23 +1,52 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://example.com/grantUpdate.json",
-    "type": "object",
-    "properties": {
-      "title": {
-        "type": "string",
-        "minLength": 1,
-        "maxLength": 100
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/grantUpdate.json",
+  "type": "object",
+  "properties": {
+      "grant_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
       },
-      "description": {
-        "type": "string",
-        "minLength": 1,
-        "maxLength": 500
+      "application_window": {
+          "type": "boolean"
       },
-      "amount": {
-        "type": "number",
-        "minimum": 0
+      "program_description": {
+          "type": "string",
+          "minLength": 1
+      },
+      "applicant_eligibility": {
+          "type": "string",
+          "minLength": 1
+      },
+      "eligible_area": {
+          "type": "string",
+          "minLength": 1
+      },
+      "use_of_funds": {
+          "type": "string",
+          "minLength": 1
+      },
+      "grant_terms": {
+          "type": "string",
+          "minLength": 1
+      },
+      "getting_started": {
+          "type": "string",
+          "minLength": 1
+      },
+      "contact_information": {
+          "type": "string",
+          "minLength": 1
+      },
+      "governing_law": {
+          "type": "string",
+          "minLength": 1
+      },
+      "program_id": {
+          "type": "number",
+          "minimum": 1
       }
-    },
-    "additionalProperties": true
-  }
-  
+  },
+  "additionalProperties": true
+}
