@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const Grant = require('../models/grant');
-const Program = require('.program./models/program');
+const Program = require('../models/program');
 
 class Scraper {
     async scrapePrograms() {
