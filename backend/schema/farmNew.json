@@ -17,8 +17,8 @@
         "filing_status": {"type": "string"},
         "tax_forms_filed": {"type": "array", "items": {"type": "string"}},
         "previous_application": {"type": "boolean"},
-        "grant_outcome": {"type": "string"},
-        "business_id": {"type": "string"}
+        "grant_outcome": {"type": "boolean"},
+        "business_id": {"type": "number"}
     },
     "additionalProperties": false,
     "required": ["size", "years_of_experience", "types_of_crops", "organic_certification", "sustainability_practices", "annual_farm_revenue", "profitability", "farm_address", "farm_city", "farm_state", "farm_zip_code", "filing_status", "tax_forms_filed", "previous_application", "grant_outcome", "business_id"]

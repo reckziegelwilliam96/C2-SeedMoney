@@ -74,6 +74,23 @@ class Farm {
 
     if (!farm) throw new NotFoundError(`No farm: ${business_id}`);
   }
+
+  // new function to get the business associated with a farm
+  static async getBusiness(farmId) {
+    const result = await db.query(
+      `SELECT b.*
+       FROM businesses AS b
+       JOIN farms AS f ON f.business_id = b.id
+       WHERE f.id = $1`,
+      [farmId],
+    );
+    const business = result.rows[0];
+
+    if (!business) throw new NotFoundError(`No business associated with farm: ${farmId}`);
+
+    return business;
+  }
+  
 }
 
 module.exports = Farm;

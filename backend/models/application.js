@@ -29,6 +29,21 @@ class Application {
   
       return application;
     }
+
+    static async getAll(user_id) {
+      const result = await db.query(
+        `SELECT user_id, grant_id, application_status, application_submission_date, application_response_data
+        FROM applications
+        WHERE user_id = $1`,
+        [user_id],
+      );
+
+      const applications = result.rows;
+
+      if (!applications) throw new NotFoundError(`No application: ${user_ud}`);
+
+      return application;
+    }
   
     static async update(user_id, data) {
       const { setCols, values } = sqlForPartialUpdate(

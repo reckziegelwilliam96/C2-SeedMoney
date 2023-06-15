@@ -1,21 +1,33 @@
 import React from 'react';
-import GrantList from './GrantList';
-
-// Mock data
-const grants = [
-  {id: 1, name: "Grant 1", description: "This is grant 1"},
-  {id: 2, name: "Grant 2", description: "This is grant 2"},
-  {id: 3, name: "Grant 3", description: "This is grant 3"},
-  // more grants...
-];
+import { Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-  return (
-    <div>
-      <h1>Welcome to SeedMoney</h1>
-      <GrantList grants={grants} />
-    </div>
-  );
+    const { user, token } = useSelector((state) => state.user);
+
+    return (
+        <div className="home-container">
+            <Card>
+                <CardBody>
+                    <CardTitle>SeedMoney</CardTitle>
+                </CardBody>
+                <CardText>Plant tomorrow's financial seeds today..</CardText>
+                {token && user ? (
+                <CardText>Welcome back, {user.first_name}</CardText>
+                ) : (
+                    <div className="button-container">
+                        <Link to="/login">
+                            <Button color="primary">Log In</Button>
+                        </Link>
+                        <Link to="/register">
+                            <Button color="primary">Register</Button>
+                        </Link>
+                    </div>
+                )}
+            </Card>
+        </div>
+    );
 };
 
 export default Home;

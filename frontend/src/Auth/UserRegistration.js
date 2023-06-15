@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../store/actions/userActions';
 
-const Registration = () => {
+const UserRegistration = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
 
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/register', { username, password });
             if (response.status === 200) {
-                // Registration successful
+                localStorage.setItem('token', response.data.token);
+                dispatch(loginUser(response.data.user, response.data.token));
+                navigate(`/register/user/${response.data.user.id}`) 
             } else {
                 // Handle registration error
             }
@@ -34,4 +41,4 @@ const Registration = () => {
     );
 };
 
-export default Registration;
+export default UserRegistration;

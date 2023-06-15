@@ -10,12 +10,17 @@ const applicationUpdateSchema = require("../schemas/applicationUpdate.json");
 
 const router = express.Router();
 
-router.post('/', ensureAdmin, async (req, res, next) => {
+router.post('/', ensureCorrectUserOrAdmin, async (req, res, next) => {
     const application = await Application.create(req.body);
     res.json({ application });
   });
+
+router.get('/', ensureCorrectUserOrAdmin, async(req, res, next) => {
+  const applications = await Application.getAll(req.params.id);
+  res.json({ applications });
+})
   
-router.get('/:id', ensureAdmin, async (req, res, next) => {
+router.get('/:id', ensureCorrectUserOrAdmin, async (req, res, next) => {
   const application = await Application.get(req.params.id);
   res.json({ application });
 });

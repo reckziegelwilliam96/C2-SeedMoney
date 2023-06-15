@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import SeedMoneyApi from '../SeedMoneyApi';
 
-const GrantDetail = ({ match }) => {
+const GrantDetail = ({ grantId }) => {
   const [grant, setGrant] = useState(null);
-  const grantId = match.params.id;
-  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // fetch grant data from server here based on grantId
-    // setGrant(data)
-  }, [grantId]);
+    useEffect(() => {
+        async function getGrant(grantId) {
+            setIsLoading(true);
+            const grant = await SeedMoneyApi.getGrant(grantId);
+            setGrant(grant);
+            setIsLoading(false);
+        } 
+        getGrant(grantId);
+    }, [grantId]);
 
   const handleApplyClick = () => {
-    // you can pass state to your route if needed
-    history.push({
-      pathname: `/apply/${grantId}`,
-      state: { grant }
-    });
+    navigate(`/application/${grantId}`)
   };
 
-  if (!grant) return <p>Loading...</p>;
+  if (isLoading){
+    return <p>Loading &hellip; </p>;
+  }
 
   return (
     <Card>

@@ -5,63 +5,91 @@ const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 class Business {
-  static async create({ business_name, business_address, tax_id }) {
-    const result = await db.query(
-      `INSERT INTO businesses (business_name, business_address, tax_id)
-       VALUES ($1, $2, $3)
-       RETURNING business_name, business_address, tax_id`,
-      [business_name, business_address, tax_id],
-    );
+    static async create({ business_name, business_address, tax_id, user_id }) {
+        const result = await db.query(
+          `INSERT INTO businesses (business_name, business_address, tax_id, user_id)
+           VALUES ($1, $2, $3, $4)
+           RETURNING business_name, business_address, tax_id, user_id`,
+          [business_name, business_address, tax_id, user_id],
+        );
 
-    return result.rows[0];
-  }
+        return result.rows[0];
+      }
 
-  static async get(tax_id) {
-    const result = await db.query(
-      `SELECT business_name, business_address, tax_id
-       FROM businesses
-       WHERE tax_id = $1`,
-      [tax_id],
-    );
-    const business = result.rows[0];
+    static async get(id) {
+      const result = await db.query(
+        `SELECT business_name, business_address, tax_id
+         FROM businesses
+         WHERE id = $1`,
+        [id],
+      );
 
-    if (!business) throw new NotFoundError(`No business: ${tax_id}`);
+      const business = result.rows[0];  
+      if (!business) throw new NotFoundError(`No business: ${id}`); 
+      return business;
+    }   
 
-    return business;
-  }
+    static async update(id, data) {
+      const { setCols, values } = sqlForPartialUpdate(
+        data,
+        {
+          business_name: "business_name",
+          business_address: "business_address",
+          tax_id: "tax_id"
+        });
+      const IDVarIdx = "$" + (values.length + 1);    
+      const querySql = `UPDATE businesses 
+                        SET ${setCols} 
+                        WHERE id = ${IDVarIdx} 
+                        RETURNING business_name, business_address, tax_id`;
 
-  static async update(tax_id, data) {
-    const { setCols, values } = sqlForPartialUpdate(
-      data,
-      {
-        business_name: "business_name",
-        business_address: "business_address"
-      });
-    const taxIDVarIdx = "$" + (values.length + 1);
+      const result = await db.query(querySql, [...values, id]);
 
-    const querySql = `UPDATE businesses 
-                      SET ${setCols} 
-                      WHERE tax_id = ${taxIDVarIdx} 
-                      RETURNING business_name, business_address, tax_id`;
-    const result = await db.query(querySql, [...values, tax_id]);
-    const business = result.rows[0];
+      const business = result.rows[0];  
+      if (!business) throw new NotFoundError(`No business: ${id}`); 
+      return business;
+    }
 
-    if (!business) throw new NotFoundError(`No business: ${tax_id}`);
+    static async remove(id) {
+        const result = await db.query(
+          `DELETE
+           FROM businesses
+           WHERE id = $1
+           RETURNING id`,
+          [id]);
+        const business = result.rows[0];
 
-    return business;
-  }
+        if (!business) throw new NotFoundError(`No business: ${id}`);
+    }
 
-  static async remove(tax_id) {
-    const result = await db.query(
-      `DELETE
-       FROM businesses
-       WHERE tax_id = $1
-       RETURNING tax_id`,
-      [tax_id]);
-    const business = result.rows[0];
+    static async getFarms(id) {
+        const result = await db.query(
+          `SELECT f.*
+           FROM farms AS f
+           WHERE f.business_id = $1`,
+          [id],
+        );
+        const farms = result.rows;
+        
+        if (!farms) throw new NotFoundError(`No farms associated with business: ${id}`);
+        
+        return farms;
+    }
 
-    if (!business) throw new NotFoundError(`No business: ${tax_id}`);
-  }
+    static async getUser(id) {
+      const result = await db.query(
+        `SELECT u.*
+         FROM users AS u
+         WHERE u.business_id = $1`,
+        [id],
+      );
+      const user = result.rows[0];
+
+      if (!user) throw new NotFoundError(`No user associated with business: ${id}`);
+
+      return user;
+    }
+    
 }
 
 module.exports = Business;
