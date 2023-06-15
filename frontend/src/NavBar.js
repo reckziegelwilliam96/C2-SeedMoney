@@ -2,24 +2,21 @@ import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from './store/actions/userActions';
+import { logout } from './store/userActions';
 
 const NavBar = () => {
-    const user = useSelector(state => {
-        console.log('User State:', state.user);
-        return state.user;
-      });
-  const dispatch = useDispatch();
+    const user = useSelector(state => state.user.currentUser);
+    const dispatch = useDispatch();   
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
+    const handleLogout = () => {
+        dispatch(logout());
+    };
 
   return (
     <Navbar color="light" light expand="md">
       <NavbarBrand tag={Link} to="/">SeedMoney</NavbarBrand>
       <Nav className="ml-auto" navbar>
-        {user === null ? (
+        {user !== null ? (
           <>
             <NavItem>
               <NavLink tag={Link} to="/login">Login</NavLink>

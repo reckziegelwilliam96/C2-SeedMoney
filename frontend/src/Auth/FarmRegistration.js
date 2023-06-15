@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { setFarm } from '../store/actions/farmActions';
+import { registerFarm } from '../store/farmActions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MultiSelect from '../MultiSelect'; 
@@ -32,15 +31,8 @@ const FarmRegistration = () => {
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-
-            const response = await axios.post('http://localhost:3000/farms/register', { size, yearsOfExperience, typesOfCrops, organicCertification, sustainabilityPractices, annualFarmRevenue, profitability, farmAddress, farmCity, farmState, farmZipCode, filingStatus, taxFormsFiled, previousApplication, grantOutcome, businessId });
-            if (response.status === 200) {
-                dispatch(setFarm(response.data.farm));
-                localStorage.setItem('farmId', response.data.farm.id);
-                navigate('/')
-            } else {
-                // Handle registration error
-            }
+            dispatch(registerFarm({ size, yearsOfExperience, typesOfCrops, organicCertification, sustainabilityPractices, annualFarmRevenue, profitability, farmAddress, farmCity, farmState, farmZipCode, filingStatus, taxFormsFiled, previousApplication, grantOutcome, businessId }));
+            navigate('/')
         } catch (error) {
             console.error(error);
         }

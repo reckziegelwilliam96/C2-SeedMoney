@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { setBusiness } from '../store/actions/businessActions';
+import { registerBusiness } from '../store/businessActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; 
 
@@ -16,14 +15,8 @@ const BusinessRegistration = () => {
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/businesses/register', { businessName, businessAddress, taxId, userId });
-            if (response.status === 200) {
-                dispatch(setBusiness(response.data.business))
-                localStorage.setItem('businessId', response.data.business.id);
-                navigate(`/register/business/${response.data.business.id}`);
-            } else {
-                // Handle registration error
-            }
+            const businessData = await dispatch(registerBusiness({ businessName, businessAddress, taxId, userId }));
+            navigate(`/register/business/${businessData.id}`);
         } catch (error) {
             console.error(error);
         }

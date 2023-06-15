@@ -1,14 +1,19 @@
 const express = require("express");
-const router = express.Router();
-const Business = require("../models/business");
-const { ensureLoggedIn } = require("../middleware/auth");
-const { validate } = require("jsonschema");
-const businessNewSchema = require("../schemas/businessNew.json");
+
 const { BadRequestError } = require("../expressError");
+const { ensureLoggedIn } = require("../middleware/auth");
+
+const jsonschema = require("jsonschema");
+const businessNewSchema = require("../schemas/businessNew.json");
+const businessUpdateSchema = require("../schemas/businessUpdate.json");
+
+const Business = require("../models/business");
+
+const router = new express.Router();
 
 router.post("/register", ensureLoggedIn, async function (req, res, next) {
     try {
-      const validator = validate(req.body, businessNewSchema);
+      const validator = jsonschema.validate(req.body, businessNewSchema);
       if (!validator.valid) {
         const errs = validator.errors.map(e => e.stack);
         throw new BadRequestError(errs);
@@ -38,6 +43,11 @@ router.get('/:id', ensureLoggedIn, async function(req, res, next) {
   
   router.patch('/:id', ensureLoggedIn, async function(req, res, next) {
     try {
+      const validator = jsonschema.validate(req.body, businessUpdateSchema);
+      if (!validator.valid) {
+        const errs = validator.errors.map(e => e.stack);
+        throw new BadRequestError(errs);
+      }
       const business = await Business.update(req.params.id, req.body);
       return res.json({ business });
     } catch (err) {

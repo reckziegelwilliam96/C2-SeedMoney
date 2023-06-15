@@ -12,8 +12,7 @@ async function comparePassword(password, hashedPassword) {
 
 function createToken(user) {
   let payload = {
-    username: user.username,
-    isAdmin: user.isAdmin
+    username: user.username
   };
 
   return jwt.sign(payload, SECRET_KEY);

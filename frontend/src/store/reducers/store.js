@@ -1,5 +1,7 @@
 
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import userReducer from './userReducer';
 import farmReducer from './farmReducer';
 import businessReducer from './businessReducer';
@@ -10,4 +12,4 @@ const rootReducer = combineReducers({
     business: businessReducer,
 });
 
-export default createStore(rootReducer);
+export default createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

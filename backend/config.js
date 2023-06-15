@@ -1,3 +1,5 @@
+"use strict";
+
 require("dotenv").config();
 require("colors");
 
@@ -7,7 +9,7 @@ const PORT = +process.env.PORT || 3001;
 function getDatabaseUri() {
   return (process.env.NODE_ENV === "test")
       ? "seedmoney_test"
-      : process.env.DATABASE_URL || "seedmoney";
+      : process.env.DATABASE_URL || "postgres://localhost:5432/seedmoney";
 }
 
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;

@@ -1,13 +1,20 @@
+"use strict";
+
 const express = require("express");
 const cors = require("cors");
+
 const { NotFoundError } = require("./expressError");
+
 const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
 const farmsRoutes = require("./routes/farms");
+const programsRoutes = require("./routes/programs");
 const grantsRoutes = require("./routes/grants");
 const applicationsRoutes = require("./routes/applications");
+
 const morgan = require("morgan");
+
 const app = express();
 
 app.use(cors());
@@ -18,6 +25,7 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
 app.use("/farms", farmsRoutes);
+app.use("/programs", programsRoutes);
 app.use("/grants", grantsRoutes);
 app.use("/applications", applicationsRoutes);
 

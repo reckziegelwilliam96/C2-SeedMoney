@@ -1,13 +1,15 @@
 const express = require("express");
-const User = require("../models/user");
-const Application = require("../models/application");
-const { createToken } = require("../helpers/token")
-const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
-const { BadRequestError } = require("../expressError");
+
 const jsonschema = require("jsonschema");
 const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
 
+const { createToken } = require("../helpers/tokens")
+const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
+const { BadRequestError } = require("../expressError");
+
+const User = require("../models/user");
+const Application = require("../models/application");
 
 const router = express.Router();
 

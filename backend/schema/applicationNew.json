@@ -13,13 +13,28 @@
         "minLength": 1,
         "maxLength": 30
       },
-      "status": {
+      "grant_response": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "application_status": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "application_submission_date": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "application_response_date": {
         "type": "string",
         "minLength": 1,
         "maxLength": 30
       }
     },
     "additionalProperties": false,
-    "required": ["userId", "grantId", "status"]
+    "required": ["userId", "grantId", "grant_response"]
   }
   
