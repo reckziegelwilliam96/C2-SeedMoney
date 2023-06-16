@@ -1,7 +1,8 @@
 -- Creating the users table
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  username VARCHAR(50),
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
   password VARCHAR(256),
   email VARCHAR(100)
 );
@@ -21,10 +22,20 @@ CREATE TABLE farms (
   size INT,
   years_of_experience INT,
   types_of_crops TEXT[],
+  organic_certification BOOLEAN,
+  sustainability_practices BOOLEAN,
+  annual_farm_revenue INT,
+  profitability INT,
+  farm_address VARCHAR(200),
+  farm_city VARCHAR(100),
+  farm_state VARCHAR(100),
+  farm_zip_code VARCHAR(10),
+  filing_status VARCHAR(100),
+  tax_forms_filed TEXT[],
+  previous_application BOOLEAN,
+  grant_outcome BOOLEAN,
   business_id INT REFERENCES businesses(id)
 );
-
-
 
 -- Creating the programs table
 CREATE TABLE programs (

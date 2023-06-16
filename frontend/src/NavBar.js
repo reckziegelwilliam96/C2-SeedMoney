@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from './store/userActions';
+import { logout } from './store/actions/userActions';
 
 const NavBar = () => {
     const user = useSelector(state => state.user.currentUser);

@@ -3,7 +3,12 @@
     "$id": "http://example.com/userUpdate.json",
     "type": "object",
     "properties": {
-      "username": {
+      "first_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "last_name": {
         "type": "string",
         "minLength": 1,
         "maxLength": 30

@@ -47,9 +47,9 @@ class SeedMoneyApi {
   }
 
   // Login User
-  static async logInUser({username, password}) {
+  static async logInUser({email, password}) {
     // Prepare the data object
-    const data = { username, password };
+    const data = { email, password };
 
     // Make the POST request using our unified request function
     let res = await this.request(`auth/token`, data, "post");

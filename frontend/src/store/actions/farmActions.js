@@ -1,4 +1,4 @@
-import SeedMoneyApi from '../SeedMoneyApi';
+import SeedMoneyApi from '../../SeedMoneyApi';
 import { SET_FARM } from './actionTypes'; 
 
 export const setFarm = (farm) => {

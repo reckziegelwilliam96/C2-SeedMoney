@@ -1,8 +1,10 @@
 "use strict";
 
 const db = require("../db");
-const { BadRequestError, NotFoundError } = require("../expressError");
+const { BadRequestError, NotFoundError, UnauthorizedError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
+const bcrypt = require("bcrypt");
+const { BCRYPT_WORK_FACTOR } = require("../config");
 
 class User {
   /** authenticate user with email, password. */

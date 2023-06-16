@@ -1,4 +1,4 @@
-import SeedMoneyApi from '../SeedMoneyApi';
+import SeedMoneyApi from '../../SeedMoneyApi';
 import { LOGIN_USER, LOGOUT_USER } from './actionTypes'; 
 
 export const loginUser = (user, token) => {

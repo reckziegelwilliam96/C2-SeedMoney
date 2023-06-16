@@ -1,4 +1,4 @@
-import SeedMoneyApi from '../SeedMoneyApi';
+import SeedMoneyApi from '../../SeedMoneyApi';
 import { SET_BUSINESS } from './actionTypes'; 
 
 export const setBusiness = (business) => {

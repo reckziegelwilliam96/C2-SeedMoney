@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerFarm } from '../store/farmActions';
+import { registerFarm } from '../store/actions/farmActions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MultiSelect from '../MultiSelect'; 

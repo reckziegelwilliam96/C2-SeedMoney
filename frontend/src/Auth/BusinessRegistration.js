@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerBusiness } from '../store/businessActions';
+import { registerBusiness } from '../store/actions/businessActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; 
 

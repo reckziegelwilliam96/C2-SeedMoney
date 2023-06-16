@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/userActions';
+import { login } from '../store/actions/userActions';
 
 const Login = () => {
     const [email, setEmail] = useState('');
