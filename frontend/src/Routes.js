@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './NavBar';
 import Home from './Home';
 import NotFound from './NotFound';
-import UserRegistration from './Auth/UserRegistration';
-import BusinessRegistration from './Auth/BusinessRegistration';
-import FarmRegistration from './Auth/FarmRegistration';
+import Registration from './Auth/Registration';
 import Login from './Auth/Login';
 import Profile from './Profile/Profile';
 import EditProfile from './Profile/EditProfile';
@@ -22,9 +20,7 @@ const RoutesComponent = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<UserRegistration />} />
-        <Route path="/register/user/:userId" element={<BusinessRegistration/>} />
-        <Route path="/register/business/:businessId" element={<FarmRegistration />} />
+        <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/users/:userId" element={<Profile />} />
         <Route path="/users/:userId/edit" element={<EditProfile />} />

@@ -9,7 +9,7 @@ class Farm {
     const result = await db.query(
       `INSERT INTO farms (size, years_of_experience, types_of_crops, organic_certification, sustainability_practices, annual_farm_revenue, profitability, farm_address, farm_city, farm_state, farm_zip_code, filing_status, tax_forms_filed, previous_application, grant_outcome, business_id)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
-       RETURNING size, years_of_experience, types_of_crops, organic_certification, sustainability_practices, annual_farm_revenue, profitability, farm_address, farm_city, farm_state, farm_zip_code, filing_status, tax_forms_filed, previous_application, grant_outcome, business_id`,
+       RETURNING id, size, years_of_experience, types_of_crops, organic_certification, sustainability_practices, annual_farm_revenue, profitability, farm_address, farm_city, farm_state, farm_zip_code, filing_status, tax_forms_filed, previous_application, grant_outcome, business_id`,
       [size, years_of_experience, types_of_crops, organic_certification, sustainability_practices, annual_farm_revenue, profitability, farm_address, farm_city, farm_state, farm_zip_code, filing_status, tax_forms_filed, previous_application, grant_outcome, business_id],
     );
 

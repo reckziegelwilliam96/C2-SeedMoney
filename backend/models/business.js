@@ -9,7 +9,7 @@ class Business {
         const result = await db.query(
           `INSERT INTO businesses (business_name, business_address, tax_id, user_id)
            VALUES ($1, $2, $3, $4)
-           RETURNING business_name, business_address, tax_id, user_id`,
+           RETURNING id, business_name, business_address, tax_id, user_id`,
           [business_name, business_address, tax_id, user_id],
         );
 

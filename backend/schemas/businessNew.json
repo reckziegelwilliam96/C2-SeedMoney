@@ -17,8 +17,12 @@
             "type": "string",
             "minLength": 9,
             "maxLength": 9
+        },
+        "user_id": {
+            "type": "integer",
+            "minimum": 1
         }
     },
     "additionalProperties": false,
-    "required": ["business_name", "business_address", "tax_id"]
+    "required": ["business_name", "business_address", "tax_id", "user_id"]
 }

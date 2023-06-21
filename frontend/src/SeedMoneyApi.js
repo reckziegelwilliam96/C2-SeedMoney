@@ -34,16 +34,24 @@ class SeedMoneyApi {
   // Register User
   static async registerUser({email, password, firstName, lastName}) {
     // Prepare the data object
-    let data = { email, password, firstName, lastName };
-    
+    let data = { 
+      "email": email, 
+      "password": password, 
+      "first_name": firstName, 
+      "last_name": lastName 
+    };
+    try {
     // Make the POST request using our unified request function
     let res = await this.request(`auth/register`, data, "post");
 
     // After successful registration, store the token in our class variable 'token'
     SeedMoneyApi.token = res.token;
-
+    
     // Return the response
     return res;
+    } catch (err) {
+      console.error(`Error in registerUser: ${err}`);
+    }
   }
 
   // Login User
@@ -62,17 +70,17 @@ class SeedMoneyApi {
   }
 
   // Get User
-  static async getUser(username) {
+  static async getUser(id) {
     // Make the GET request using our unified request function
-    let res = await this.request(`users/${username}`);
+    let res = await this.request(`users/${id}`);
     // Return the user data
     return res.user;
   }
 
   // Update User
-  static async updateUser(username, updatedData) {
+  static async updateUser(id, updatedData) {
     // Make the PATCH request using our unified request function
-    let res = await this.request(`users/${username}`, updatedData, 'patch');
+    let res = await this.request(`users/${id}`, updatedData, 'patch');
     // Return the updated user data
     return res.user;
   }
@@ -115,10 +123,10 @@ class SeedMoneyApi {
   static async registerBusiness({ businessName, businessAddress, taxId, userId }) {
     // Prepare the data object
     let data = {
-      business_name: businessName,
-      business_address: businessAddress,
-      tax_id: taxId,
-      user_id: userId
+      "business_name": businessName,
+      "business_address": businessAddress,
+      "tax_id": taxId,
+      "user_id": userId
     };
 
     // Make the POST request using our unified request function
@@ -148,22 +156,22 @@ class SeedMoneyApi {
   }) {
     // Prepare the data object
     let data = {
-      size, 
-      yearsOfExperience, 
-      typesOfCrops, 
-      organicCertification, 
-      sustainabilityPractices, 
-      annualFarmRevenue, 
-      profitability, 
-      farmAddress, 
-      farmCity, 
-      farmState, 
-      farmZipCode, 
-      filingStatus, 
-      taxFormsFiled, 
-      previousApplication, 
-      grantOutcome, 
-      businessId
+      "size": size, 
+      "years_of_experience": yearsOfExperience, 
+      "types_of_crops": typesOfCrops, 
+      "organic_certification": organicCertification, 
+      "sustainability_practices": sustainabilityPractices, 
+      "annual_farm_revenue": annualFarmRevenue, 
+      "profitability": profitability, 
+      "farm_address": farmAddress, 
+      "farm_city": farmCity, 
+      "farm_state": farmState, 
+      "farm_zip_code": farmZipCode, 
+      "filing_status": filingStatus, 
+      "tax_forms_filed": taxFormsFiled, 
+      "previous_application": previousApplication, 
+      "grant_outcome": grantOutcome, 
+      "business_id": businessId
     };
 
     // Make the POST request using our unified request function

@@ -12,7 +12,7 @@ const Farm = require("../models/farm");
 const router = express.Router();
 
 // Create new farm
-router.post("/register", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.post("/register", async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, farmNewSchema);
         if (!validator.valid) {
@@ -20,7 +20,7 @@ router.post("/register", ensureCorrectUserOrAdmin, async function (req, res, nex
             throw new BadRequestError(errs);
         }
 
-        const farm = await Farm.create(req.body);
+        const farm = await Farm.create({...req.body});
         return res.status(201).json({ farm });
     } catch (err) {
         return next(err);

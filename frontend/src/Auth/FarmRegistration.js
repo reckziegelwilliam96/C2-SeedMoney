@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { registerFarm } from '../store/actions/farmActions';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import MultiSelect from '../MultiSelect'; 
 import Checkbox from '../Checkbox'; 
 
-const FarmRegistration = () => {
+const FarmRegistration = ({onSubmit}) => {
     const [size, setSize] = useState('');
     const [yearsOfExperience, setYearsOfExperience] = useState('');
     const [typesOfCrops, setTypesOfCrops] = useState([]);
@@ -21,9 +19,7 @@ const FarmRegistration = () => {
     const [taxFormsFiled, setTaxFormsFiled] = useState([]);
     const [previousApplication, setPreviousApplication] = useState(false);
     const [grantOutcome, setGrantOutcome] = useState(false);
-    const businessId = localStorage.getItem('businessId');
-    const dispatch = useDispatch(); 
-    const navigate = useNavigate();
+    const businessId = useSelector((state) => state.business.business.id);
 
     const cropChoices = ["Corn", "Wheat", "Soybeans", "Cotton"];
     const taxFormChoices = ["1040", "1120", "1120S", "1065"];
@@ -31,8 +27,25 @@ const FarmRegistration = () => {
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            dispatch(registerFarm({ size, yearsOfExperience, typesOfCrops, organicCertification, sustainabilityPractices, annualFarmRevenue, profitability, farmAddress, farmCity, farmState, farmZipCode, filingStatus, taxFormsFiled, previousApplication, grantOutcome, businessId }));
-            navigate('/')
+            const farmData = { 
+                size: Number(size), 
+                yearsOfExperience: Number(yearsOfExperience), 
+                typesOfCrops, 
+                organicCertification, 
+                sustainabilityPractices, 
+                annualFarmRevenue: Number(annualFarmRevenue), 
+                profitability: Number(profitability), 
+                farmAddress, 
+                farmCity, 
+                farmState, 
+                farmZipCode, 
+                filingStatus, 
+                taxFormsFiled, 
+                previousApplication, 
+                grantOutcome, 
+                businessId
+            };
+            onSubmit(farmData);
         } catch (error) {
             console.error(error);
         }

@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { signup } from '../store/actions/userActions';
 
-const UserRegistration = () => {
+const UserRegistration = ({onSubmit}) => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const dispatch = useDispatch();
-    const navigate = useNavigate(); 
 
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            const userData = await dispatch(signup({ firstName, lastName, password, email }));
-            navigate(`/register/user/${userData.id}`) 
+            const userData = { firstName, lastName, password, email };
+            onSubmit(userData);
         } catch (error) {
             console.error(error);
         }

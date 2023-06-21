@@ -13,8 +13,8 @@ const Home = () => {
                     <CardTitle>SeedMoney</CardTitle>
                 </CardBody>
                 <CardText>Plant tomorrow's financial seeds today..</CardText>
-                {token && user ? (
-                <CardText>Welcome back, {user.first_name}</CardText>
+                {(token && user) ? (
+                <CardText>Welcome back, {user?.first_name}</CardText>
                 ) : (
                     <div className="button-container">
                         <Link to="/login">

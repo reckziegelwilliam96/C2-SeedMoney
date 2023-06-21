@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
-import { registerBusiness } from '../store/actions/businessActions';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; 
+import { useSelector } from 'react-redux'; 
 
-const BusinessRegistration = () => {
+const BusinessRegistration = ({onSubmit}) => {
     const [businessName, setBusinessName] = useState('');
     const [businessAddress, setBusinessAddress] = useState('');
     const [taxId, setTaxId] = useState('');
-    const userId = useSelector(state => state.user.id); 
-    
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const userId = useSelector((state) => state.user.user.id);
 
     const handleRegistration = async (e) => {
         e.preventDefault();
         try {
-            const businessData = await dispatch(registerBusiness({ businessName, businessAddress, taxId, userId }));
-            navigate(`/register/business/${businessData.id}`);
+            const businessData = { businessName, businessAddress, taxId, userId };
+            onSubmit(businessData);
         } catch (error) {
             console.error(error);
         }

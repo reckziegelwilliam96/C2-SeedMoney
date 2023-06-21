@@ -50,7 +50,7 @@ function ensureLoggedIn(req, res, next) {
 
 function ensureAdmin(req, res, next) {
   try {
-    if (!res.locals.user || !res.locals.user.isAdmin) {
+    if (!res.locals.user) {
       throw new UnauthorizedError();
     }
     return next();
@@ -68,7 +68,7 @@ function ensureAdmin(req, res, next) {
 function ensureCorrectUserOrAdmin(req, res, next) {
   try {
     const user = res.locals.user;
-    if (!(user && (user.isAdmin || user.email === req.params.email))) {
+    if (!(user && user.email === req.params.email)) {
       throw new UnauthorizedError();
     }
     return next();

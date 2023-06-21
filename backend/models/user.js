@@ -10,10 +10,11 @@ class User {
   /** authenticate user with email, password. */
 static async authenticate(email, password) {
   const result = await db.query(
-        `SELECT email,
+        `SELECT id,
+                email,
                 password,
-                first_name AS "firstName",
-                last_name AS "lastName"
+                first_name,
+                last_name
          FROM users
          WHERE email = $1`,
       [email],
@@ -33,10 +34,12 @@ static async authenticate(email, password) {
 }
 
 /** Register user with data. */
-static async register(
-    { firstName, lastName, email, password }) {
+static async register({ first_name, last_name, email, password }) {
   const duplicateCheck = await db.query(
-        `SELECT email
+        `SELECT email,
+                password,
+                first_name,
+                last_name
          FROM users
          WHERE email = $1`,
       [email],
@@ -51,11 +54,11 @@ static async register(
   const result = await db.query(
         `INSERT INTO users
          (first_name, last_name, email, password)
-         VALUES ($1, $2, $3, $4, $5)
-         RETURNING first_name AS "firstName", last_name AS "lastName", email`,
+         VALUES ($1, $2, $3, $4)
+         RETURNING id, first_name, last_name, email`,
       [
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         email,
         hashedPassword,
       ],

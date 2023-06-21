@@ -1,4 +1,6 @@
-const initialState = {};
+const initialState = {
+    farm: null
+};
 
 const farmReducer = (state = initialState, action) => {
     switch (action.type) {

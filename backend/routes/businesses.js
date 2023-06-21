@@ -18,13 +18,8 @@ router.post("/register", ensureLoggedIn, async function (req, res, next) {
         const errs = validator.errors.map(e => e.stack);
         throw new BadRequestError(errs);
       }
-      
-      const businessData = {
-        ...req.body,
-        user_id: req.user.id  // Get user id from req.user, which is set by the authentication middleware
-      };
   
-      const business = await Business.create(businessData);
+      const business = await Business.create({...req.body});
   
       return res.status(201).json({ business });
     } catch (err) {
@@ -82,3 +77,4 @@ router.get('/:id', ensureLoggedIn, async function(req, res, next) {
     }
   });
   
+  module.exports = router;

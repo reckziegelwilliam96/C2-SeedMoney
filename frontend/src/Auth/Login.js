@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await dispatch(login({ email, password }));
+            dispatch(login({ email, password }));
             navigate('/')
         } catch (error) {
             console.error(error);
