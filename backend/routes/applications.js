@@ -14,7 +14,7 @@ const Application = require("../models/application");
 
 const router = express.Router();
 
-router.post('/', ensureCorrectUserOrAdmin, async(req, res, next) => {
+router.post('/', async(req, res, next) => {
   try {
     const validator = jsonschema.validate(req.body, applicationNewSchema);
     if (!validator.valid) {
@@ -28,17 +28,17 @@ router.post('/', ensureCorrectUserOrAdmin, async(req, res, next) => {
   }
 });
 
-router.get('/', ensureCorrectUserOrAdmin, async(req, res, next) => {
+router.get('/', async(req, res, next) => {
   const applications = await Application.getAll(req.params.id);
   res.json({ applications });
 })
   
-router.get('/:id', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const application = await Application.get(req.params.id);
   res.json({ application });
 });
 
-router.patch('/:id', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.patch('/:id', async (req, res, next) => {
   try {
     const validator = jsonschema.validate(req.body, applicationUpdateSchema);
     if (!validator.valid) {
@@ -52,7 +52,7 @@ router.patch('/:id', ensureCorrectUserOrAdmin, async (req, res, next) => {
   }
 });
 
-router.delete('/:id', ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   await Application.remove(req.params.id);
   res.json({ message: 'Application deleted' });
 });

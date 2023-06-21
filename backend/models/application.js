@@ -5,16 +5,21 @@ const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 class Application {
-    static async create({ user_id, grant_id, application_status, application_submission_date, application_response_data }) {
-      const result = await db.query(
-        `INSERT INTO applications (user_id, grant_id, application_status, application_submission_date, application_response_data)
-         VALUES ($1, $2, $3, $4, $5)
-         RETURNING user_id, grant_id, application_status, application_submission_date, application_response_data`,
-        [user_id, grant_id, application_status, application_submission_date, application_response_data],
-      );
+  static async create({ user_id, grant_id, farm_name, farm_location, farm_size, farm_revenue, crops_grown, animals_raised, app_proposal }) {
+    const app_status = 'Pending Response';
+    const app_submission_date = new Date().toISOString().slice(0, 10); // Format date as 'YYYY-MM-DD'
+    const app_response_date = null; // The application hasn't been responded yet.
   
-      return result.rows[0];
-    }
+    const result = await db.query(
+      `INSERT INTO applications (user_id, grant_id, farm_name, farm_location, farm_size, farm_revenue, crops_grown, animals_raised, app_proposal, app_status, app_submission_date, app_response_date)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+       RETURNING user_id, grant_id, farm_name, farm_size, farm_revenue, crops_grown, animals_raised, app_proposal, app_status, app_submission_date, app_response_date`,
+      [user_id, grant_id, farm_name, farm_location, farm_size, farm_revenue, crops_grown, animals_raised, app_proposal, app_status, app_submission_date, app_response_date],
+    );
+  
+    return result.rows[0];
+  }
+  
   
     static async get(user_id) {
       const result = await db.query(

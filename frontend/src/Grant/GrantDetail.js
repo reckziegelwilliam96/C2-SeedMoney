@@ -20,7 +20,7 @@ const GrantDetail = () => {
     }, [grantId]);
 
   const handleApplyClick = () => {
-    navigate(`/application/${grantId}`)
+    navigate(`/applications/${grantId}`)
   };
 
   if (isLoading){

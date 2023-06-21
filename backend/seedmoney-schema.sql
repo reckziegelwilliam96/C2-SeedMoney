@@ -63,12 +63,17 @@ CREATE TABLE grants (
 
 -- Creating the applications table
 CREATE TABLE applications (
-  id SERIAL PRIMARY KEY,
-  userId VARCHAR(30),
-  grantId INT REFERENCES grants(id),
-  grant_response VARCHAR(500),
-  application_status VARCHAR(30),
-  application_submission_date DATE,
-  application_response_date DATE
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    grant_id INTEGER REFERENCES grants(id),
+    farm_name VARCHAR(255),
+    farm_size INTEGER,
+    farm_location VARCHAR,
+    farm_revenue NUMERIC,
+    crops_grown VARCHAR(255),
+    animals_raised VARCHAR(255),
+    app_proposal VARCHAR(500),
+    app_status VARCHAR(30) DEFAULT 'Pending Response',
+    app_submission_date DATE DEFAULT CURRENT_DATE,
+    app_response_date DATE
 );
-

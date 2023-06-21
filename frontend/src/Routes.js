@@ -26,9 +26,9 @@ const RoutesComponent = () => {
         <Route path="/users/:userId/edit" element={<EditProfile />} />
         <Route path="/grants" element={<Grants />} />
         <Route path="/grants/:grantId" element={<GrantDetail />} />
-        <Route path="/applications" element={<MyApplications />} />
-        <Route path="/applications/:applicationId" element={<ApplicationDetail />} />
         <Route path="/applications/:grantId" element={<ApplicationForm />} />
+        <Route path="/applications/:userId" element={<MyApplications />} />
+        <Route path="/applications/:applicationId" element={<ApplicationDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

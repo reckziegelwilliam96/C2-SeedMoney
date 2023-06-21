@@ -197,12 +197,31 @@ class SeedMoneyApi {
   }
 
   // Create Application
-  static async createApplication({ userId, grantId, applicationData }) {
-    // Prepare the data object
-    let data = { userId, grantId, ...applicationData };
+  static async createApplication({ 
+    userId, 
+    grantId, 
+    farmName, 
+    farmSize, 
+    farmLocation, 
+    cropsGrown, 
+    animalsRaised, 
+    farmRevenue, 
+    appProposal 
+}) {
+    let data = {
+      "user_id": userId,
+      "grant_id": grantId,
+      "farm_name": farmName,
+      "farm_size": farmSize,
+      "farm_location": farmLocation,
+      "crops_grown": cropsGrown,
+      "animals_raised": animalsRaised,
+      "farm_revenue": farmRevenue,
+      "app_proposal": appProposal
+    };
 
     // Make the POST request using our unified request function
-    let res = await this.request(`applications`, data, "post");
+    let res = await this.request(`applications/`, data, "post");
     // Return
 
     return res;
