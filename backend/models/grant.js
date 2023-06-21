@@ -16,12 +16,20 @@ class Grant {
         
         return new Grant(newGrant.id, newGrant.grant_name, newGrant.application_window, newGrant.program_description, newGrant.applicant_eligibility, newGrant.eligible_area, newGrant.use_of_funds, newGrant.grant_terms, newGrant.getting_started, newGrant.contact_information, newGrant.governing_law, newGrant.program_id);
     }
+
+    static async getAll() {
+      const result = await db.query(
+        `SELECT id, grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id
+         FROM grants`
+      );
+      return result.rows;
+    }
   
     static async get(grantID) {
         const result = await db.query(
-          `SELECT grantID, grantName, grantDescription, grantAmount, applicationDeadline, eligibilityRequirements
+          `SELECT id, grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id
            FROM grants
-           WHERE grantID = $1`,
+           WHERE id = $1`,
           [grantID],
         );
         const grant = result.rows[0];

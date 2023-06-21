@@ -8,7 +8,7 @@ import Registration from './Auth/Registration';
 import Login from './Auth/Login';
 import Profile from './Profile/Profile';
 import EditProfile from './Profile/EditProfile';
-import GrantList from './Grant/GrantList';
+import Grants from './Grant/Grant';
 import GrantDetail from './Grant/GrantDetail';
 import MyApplications from './Application/MyApplications';
 import ApplicationDetail from './Application/ApplicationDetail';
@@ -24,7 +24,7 @@ const RoutesComponent = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/users/:userId" element={<Profile />} />
         <Route path="/users/:userId/edit" element={<EditProfile />} />
-        <Route path="/grants" element={<GrantList />} />
+        <Route path="/grants" element={<Grants />} />
         <Route path="/grants/:grantId" element={<GrantDetail />} />
         <Route path="/applications" element={<MyApplications />} />
         <Route path="/applications/:applicationId" element={<ApplicationDetail />} />

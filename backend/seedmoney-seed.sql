@@ -10,17 +10,21 @@
 -- (1, 'John''s Farm', '123 John Street', '123456789', 1),
 -- (2, 'Jane''s Farm', '456 Jane Avenue', '987654321', 2);
 
--- -- Inserting data into the programs table
--- INSERT INTO programs (title, link, description)
--- VALUES 
--- ('Program 1', 'www.example.com/program1', 'Description for program 1'),
--- ('Program 2', 'www.example.com/program2', 'Description for program 2');
+-- Inserting data into the programs table
+INSERT INTO programs (title, link, description)
+VALUES 
+('Program 1', 'www.example.com/program1', 'Description for program 1'),
+('Program 2', 'www.example.com/program2', 'Description for program 2');
 
--- -- Inserting data into the grants table
--- INSERT INTO grants (grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id)
--- VALUES 
--- ('Grant 1', true, 'Description for grant 1', 'Eligibility for grant 1', 'Area 1', 'Use of funds for grant 1', 'Terms for grant 1', 'Getting started for grant 1', 'Contact for grant 1', 'Law 1', 1),
--- ('Grant 2', false, 'Description for grant 2', 'Eligibility for grant 2', 'Area 2', 'Use of funds for grant 2', 'Terms for grant 2', 'Getting started for grant 2', 'Contact for grant 2', 'Law 2', 2);
+-- Inserting data into the grants table
+INSERT INTO grants (grant_name, application_window, program_description, applicant_eligibility, eligible_area, use_of_funds, grant_terms, getting_started, contact_information, governing_law, program_id)
+VALUES 
+('Grant 1', true, 'Description for grant 1', 'Eligibility for grant 1', 'Area 1', 'Use of funds for grant 1', 'Terms for grant 1', 'Getting started for grant 1', 'Contact for grant 1', 'Law 1', 1),
+('Grant 2', false, 'Description for grant 2', 'Eligibility for grant 2', 'Area 2', 'Use of funds for grant 2', 'Terms for grant 2', 'Getting started for grant 2', 'Contact for grant 2', 'Law 2', 2),
+('Grant 3', false, 'Description for grant 3', 'Eligibility for grant 3', 'Area 3', 'Use of funds for grant 3', 'Terms for grant 3', 'Getting started for grant 3', 'Contact for grant 3', 'Law 3', 2),
+('Grant 1', true, 'Description for grant 1', 'Eligibility for grant 1', 'Area 1', 'Use of funds for grant 1', 'Terms for grant 1', 'Getting started for grant 1', 'Contact for grant 1', 'Law 1', 1),
+('Grant 2', false, 'Description for grant 2', 'Eligibility for grant 2', 'Area 2', 'Use of funds for grant 2', 'Terms for grant 2', 'Getting started for grant 2', 'Contact for grant 2', 'Law 2', 2),
+('Grant 3', false, 'Description for grant 3', 'Eligibility for grant 3', 'Area 3', 'Use of funds for grant 3', 'Terms for grant 3', 'Getting started for grant 3', 'Contact for grant 3', 'Law 3', 2);
 
 -- -- Inserting data into the farms table
 -- INSERT INTO farms 

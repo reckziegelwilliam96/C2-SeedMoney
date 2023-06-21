@@ -28,8 +28,17 @@ router.post('/', ensureAdmin, async (req, res, next) => {
     return next(err);
   }
 });
+
+router.get('/', async (req, res, next) => {
+  try { 
+    const grants = await Grant.getAll();
+    res.json({ grants });
+  } catch (err) {
+    return next(err);
+  }
+});
   
-router.get('/:id', ensureAdmin, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try { 
     const grant = await Grant.get(req.params.id);
     res.json({ grant });
