@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../store/actions/userActions';
+import Form from '../components/Form';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    const formFields = [
+        {name: 'email', type: 'email', label: 'Email'},
+        {name: 'password', type: 'password', label: 'Password'},
+    ];
+
+    const handleLogin = async (formData) => {
         try {
-            dispatch(login({ email, password }));
-            navigate('/')
+            await dispatch(login(formData));
+            navigate('/');
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <label>
-                Email:
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-                Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <input type="submit" value="Login" />
-        </form>
+        <Form fields={formFields} onSubmit={handleLogin} buttonText="Login" />
     );
 };
 

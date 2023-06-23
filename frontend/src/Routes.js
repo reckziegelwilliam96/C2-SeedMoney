@@ -14,16 +14,16 @@ import MyApplications from './Application/MyApplications';
 import ApplicationDetail from './Application/ApplicationDetail';
 import ApplicationForm from './Application/ApplicationForm';
 
-const RoutesComponent = () => {
+const RoutesComponent = ({onLogout, logoutKey}) => {
   return (
     <Router>
-      <NavBar />
+      <NavBar onLogout={onLogout} logoutKey={logoutKey} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/users/:userId" element={<Profile />} />
-        <Route path="/users/:userId/edit" element={<EditProfile />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="/profile/edit" element={<EditProfile />} />
         <Route path="/grants" element={<Grants />} />
         <Route path="/grants/:grantId" element={<GrantDetail />} />
         <Route path="/applications/:grantId" element={<ApplicationForm />} />

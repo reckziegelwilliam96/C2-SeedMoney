@@ -5,7 +5,15 @@ const initialState = {
 const farmReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_FARM':
-            return action.payload;
+            return {
+                ...state,
+                farm: action.payload
+            };
+        case 'REMOVE_FARM':
+            return {
+                ...state,
+                farm: null
+            };
         default:
             return state;
     }

@@ -1,10 +1,16 @@
 import SeedMoneyApi from '../../SeedMoneyApi';
-import { SET_FARM } from './actionTypes'; 
+import { SET_FARM, REMOVE_FARM } from './actionTypes'; 
 
 export const setFarm = (farm) => {
     return {
         type: SET_FARM,
         payload: farm
+    }
+};
+
+export const removeFarm = () => {
+    return {
+        type: REMOVE_FARM
     }
 };
 

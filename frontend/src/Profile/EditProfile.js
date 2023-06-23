@@ -1,69 +1,48 @@
-// EditProfile.js
 import React, { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Form from '../components/Form';
+import SeedMoneyApi from '../SeedMoneyApi';
 
-function EditProfile() {
-  const { id } = useParams();
+function EditProfile({ setIsEditing }) {
+  const userId = useSelector((state) => state.user.user.id)
+  const farmId = useSelector((state) => state.farm.farm.id)
+  const businessId = useSelector((state) => state.business.business.id)
+  // const navigate = useNavigate();
+
   const [userData, setUserData] = useState(null);
   const [farmData, setFarmData] = useState(null);
   const [businessData, setBusinessData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
-      const userRes = await axios.get(`/api/users/${id}`);
-      const businessRes = await axios.get(`/api/businesses/${userRes.data.business_id}`);
-      const farmRes = await axios.get(`/api/farms/${userRes.data.business_id}`);
-      setUserData(userRes.data);
-      setBusinessData(businessRes.data);
-      setFarmData(farmRes.data);
+      const userRes = await SeedMoneyApi.getUser(userId);
+      const farmRes = await SeedMoneyApi.getFarm(farmId);
+      const businessRes = await SeedMoneyApi.getBusiness(businessId);
+      setUserData(userRes);
+      setFarmData(farmRes);
+      setBusinessData(businessRes);
     }
     fetchData();
-  }, [id]);
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    await axios.patch(`/api/users/${id}`, userData);
-    await axios.patch(`/api/farms/${businessData.id}`, farmData);
-    await axios.patch(`/api/businesses/${businessData.id}`, businessData);
-  }
-
-  function handleChange(event) {
-    const {name, value} = event.target;
-    if (name in userData) setUserData(oldData => ({...oldData, [name]: value}));
-    else if (name in farmData) setFarmData(oldData => ({...oldData, [name]: value}));
-    else if (name in businessData) setBusinessData(oldData => ({...oldData, [name]: value}));
-  }
+  }, [userId, farmId, businessId]);
 
   if (!userData || !farmData || !businessData) return <div>Loading...</div>;
 
+  const fields = [
+    { name: 'email', label: 'Email', initialValue: userData.email, type: 'input', inputType: 'email' },
+    { name: 'size', label: 'Farm Size', initialValue: farmData.size, type: 'input', inputType: 'number' },
+    { name: 'business_name', label: 'Business Name', initialValue: businessData.business_name, type: 'input' },
+  ];
+
+  async function handleSubmit(data) {
+    await SeedMoneyApi.updateUser(userId, { ...userData, email: data.email });
+    await SeedMoneyApi.updateFarm(userData.farmId, { ...farmData, size: data.size });
+    await SeedMoneyApi.updateBusiness(userData.businessId, { ...businessData, business_name: data.business_name });
+    setIsEditing(false);
+  }
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <h2>Edit Profile</h2>
-      <h3>User Data</h3>
-      <FormGroup>
-        <Label for="email">Email</Label>
-        <Input type="email" name="email" id="email" value={userData.email} onChange={handleChange} />
-      </FormGroup>
-      {/* Add more form fields for userData... */}
-
-      <h3>Farm Data</h3>
-      <FormGroup>
-        <Label for="size">Size</Label>
-        <Input type="text" name="size" id="size" value={farmData.size} onChange={handleChange} />
-      </FormGroup>
-      {/* Add more form fields for farmData... */}
-
-      <h3>Business Data</h3>
-      <FormGroup>
-        <Label for="business_name">Business Name</Label>
-        <Input type="text" name="business_name" id="business_name" value={businessData.business_name} onChange={handleChange} />
-      </FormGroup>
-      {/* Add more form fields for businessData... */}
-      
-      <Button>Save Changes</Button>
-    </Form>
+    <Form fields={fields} onSubmit={handleSubmit} />
   );
 }
 

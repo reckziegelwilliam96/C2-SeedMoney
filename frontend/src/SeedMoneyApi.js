@@ -92,32 +92,32 @@ class SeedMoneyApi {
     // Make the GET request using our unified request function
     let res = await this.request(`users/${userId}/businesses`);
     // Return the data
-    return res.data;
+    return res.businesses;
   }
 
-  // Get a specific business for a user
-  static async getUserBusiness(userId, businessId) {
-    // Make the GET request using our unified request function
-    let res = await this.request(`users/${userId}/businesses/${businessId}`);
-    // Return the data
-    return res.data;
-  }
+  // // Get a specific business for a user
+  // static async getUserBusiness(userId) {
+  //   // Make the GET request using our unified request function
+  //   let res = await this.request(`users/${userId}/businesses`);
+  //   // Return the data
+  //   return res.data;
+  // }
 
   // Get all farms for a user
   static async getUserFarms(userId) {
     // Make the GET request using our unified request function
     let res = await this.request(`users/${userId}/farms`);
     // Return the data
-    return res.data;
+    return res.farms;
   }
 
-  // Get a specific farm for a user
-  static async getUserFarm(userId, farmId) {
-    // Make the GET request using our unified request function
-    let res = await this.request(`users/${userId}/farms/${farmId}`);
-    // Return the data
-    return res.data;
-  }
+  // // Get a specific farm for a user
+  // static async getUserFarm(userId, farmId) {
+  //   // Make the GET request using our unified request function
+  //   let res = await this.request(`users/${userId}/farms/${farmId}`);
+  //   // Return the data
+  //   return res.data;
+  // }
 
   // Register Business
   static async registerBusiness({ businessName, businessAddress, taxId, userId }) {
@@ -236,9 +236,9 @@ class SeedMoneyApi {
   }
 
   //Get All Applications
-  static async getApplications(params = {}) {
+  static async getApplications(userId) {
 
-    let res = await this.request(`applications`, params);
+    let res = await this.request(`users/${userId}/applications`);
 
     return res.applications;
   }

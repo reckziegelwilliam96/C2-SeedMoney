@@ -1,5 +1,7 @@
 import SeedMoneyApi from '../../SeedMoneyApi';
-import { LOGIN_USER, LOGOUT_USER, SIGNUP_START } from './actionTypes'; 
+import { LOGIN_USER, LOGOUT_USER } from './actionTypes';
+import { removeBusiness } from './businessActions';
+import { removeFarm } from './farmActions';
 
 export const loginUser = (user, token) => {
     return {
@@ -17,12 +19,6 @@ export const logOutUser = () => {
     }
 };
 
-export const signupStart = () => {
-  return {
-      type: SIGNUP_START
-  }
-};
-
 export const login = user => async dispatch => {
   const result = await SeedMoneyApi.logInUser(user);
   dispatch(loginUser(result.user, result.token));
@@ -30,7 +26,6 @@ export const login = user => async dispatch => {
 };
 
 export const signup = user => async dispatch => {
-  dispatch(signupStart());
   const result = await SeedMoneyApi.registerUser(user);
   dispatch(loginUser(result.user, result.token));
   return result.user;
@@ -38,4 +33,6 @@ export const signup = user => async dispatch => {
 
 export const logout = () => dispatch => {
   dispatch(logOutUser());
+  dispatch(removeBusiness());
+  dispatch(removeFarm());
 };

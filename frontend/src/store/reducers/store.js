@@ -9,6 +9,8 @@ import userReducer from './userReducer';
 import farmReducer from './farmReducer';
 import businessReducer from './businessReducer';
 
+import tokenMiddleware from '../middleware/tokenMiddleware';
+
 const rootReducer = combineReducers({
     user: userReducer,
     farm: farmReducer,
@@ -23,5 +25,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));
+// include tokenMiddleware in the middleware chain
+export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk, tokenMiddleware)));
 export const persistor = persistStore(store);

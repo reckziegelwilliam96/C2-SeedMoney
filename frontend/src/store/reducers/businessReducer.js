@@ -6,11 +6,6 @@ const initialState = {
 
 const businessReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_BUSINESS_START':
-            return {
-                ...state,
-                loading: true,
-            };
         case 'SET_BUSINESS':
             return {
                 ...state,

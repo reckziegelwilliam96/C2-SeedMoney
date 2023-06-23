@@ -5,7 +5,7 @@ const userNewSchema = require("../schemas/userNew.json");
 const userUpdateSchema = require("../schemas/userUpdate.json");
 
 const { createToken } = require("../helpers/tokens")
-const { ensureCorrectUserOrAdmin, ensureAdmin } = require("../middleware/auth");
+const { ensureCorrectUserOrAdmin, ensureAdmin, ensureLoggedIn } = require("../middleware/auth");
 const { BadRequestError } = require("../expressError");
 
 const User = require("../models/user");
@@ -24,7 +24,7 @@ router.get("/", ensureAdmin, async function (req, res, next) {
   }
 });
 
-router.get("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:id", async function (req, res, next) {
   try {
     const user = await User.get(req.params.id);
     return res.json({ user });
@@ -58,9 +58,10 @@ router.delete("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) 
 });
 
 // route to get all businesses for a user
-router.get("/:id/businesses", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:id/businesses",  async function (req, res, next) {
   try {
     const businesses = await User.getUserBusinesses(req.params.id);
+    console.log('Route getUserBusinesses:', businesses); 
     return res.json({ businesses });
   } catch (err) {
     return next(err);
@@ -68,9 +69,9 @@ router.get("/:id/businesses", ensureCorrectUserOrAdmin, async function (req, res
 });
 
 // route to get a specific business for a user
-router.get("/:id/businesses/:businessId", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:id/businesses/:businessId", ensureLoggedIn , async function (req, res, next) {
   try {
-    const business = await User.getUserBusiness(req.params.userId, req.params.businessId);
+    const business = await User.getUserBusiness(req.body);
     return res.json({ business });
   } catch (err) {
     return next(err);
@@ -78,9 +79,10 @@ router.get("/:id/businesses/:businessId", ensureCorrectUserOrAdmin, async functi
 });
 
 // route to get all farms for a user
-router.get("/:id/farms", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:id/farms", async function (req, res, next) {
   try {
     const farms = await User.getUserFarms(req.params.id);
+    console.log('Route getUserFarms:', farms); 
     return res.json({ farms });
   } catch (err) {
     return next(err);
@@ -90,7 +92,7 @@ router.get("/:id/farms", ensureCorrectUserOrAdmin, async function (req, res, nex
 // route to get a specific farm for a user
 router.get("/:id/farms/:farmId", ensureCorrectUserOrAdmin, async function (req, res, next) {
   try {
-    const farm = await User.getUserFarm(req.params.userId, req.params.farmId);
+    const farm = await User.getUserFarm(req.body);
     return res.json({ farm });
   } catch (err) {
     return next(err);
@@ -98,9 +100,9 @@ router.get("/:id/farms/:farmId", ensureCorrectUserOrAdmin, async function (req, 
 });
 
 // route to get all applications for a user
-router.get("/:id/applications", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.get("/:id/applications", async function (req, res, next) {
   try {
-    const applications = await Application.get(req.params.id);
+    const applications = await User.getApplications(req.params.id);
     return res.json({ applications });
   } catch (err) {
     return next(err);

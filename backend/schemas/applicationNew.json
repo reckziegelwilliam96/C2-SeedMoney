@@ -26,14 +26,20 @@
           "type": "number"
       },
       "crops_grown": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 255
+          "type": "array",
+          "items": {
+              "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 255
       },
       "animals_raised": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 255
+          "type": "array",
+          "items": {
+              "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 255
       },
       "app_proposal": {
           "type": "string",

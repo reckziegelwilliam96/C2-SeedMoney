@@ -1,22 +1,14 @@
 import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logout } from './store/actions/userActions';
+import { useSelector } from 'react-redux';
 
-const NavBar = () => {
+
+const NavBar = ({onLogout, logoutKey}) => {
     const { user, token } = useSelector((state) => state.user);
-    const dispatch = useDispatch(); 
-    const navigate = useNavigate();  
-
-    const handleLogout = () => {
-        dispatch(logout());
-        navigate("/");
-    };
 
   return (
-    <Navbar color="light" light expand="md">
+    <Navbar color="light" light expand="md" key={logoutKey}>
       <NavbarBrand tag={Link} to="/">SeedMoney</NavbarBrand>
       <Nav className="ml-auto" navbar>
         {(!user && !token) ? (
@@ -40,7 +32,7 @@ const NavBar = () => {
               <NavLink tag={Link} to="/profile">Profile</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={handleLogout} tag={Link} to="/">Logout</NavLink>
+              <NavLink onClick={onLogout} tag={Link} to="/">Logout</NavLink>
             </NavItem>
           </>
         )}

@@ -85,14 +85,12 @@ static async findAll() {
 
   static async get(id) {
     const result = await db.query(
-      `SELECT users.id, first_name, last_name, email
-              businesses.name AS business_name,
-              JSON_AGG(farms) AS farms
-       FROM users
-       JOIN businesses ON businesses.user_id = users.id
-       LEFT JOIN farms ON farms.business_id = businesses.id
-       WHERE users.id = $1
-       GROUP BY users.id, businesses.name`,
+        `SELECT email,
+                password,
+                first_name,
+                last_name
+         FROM users
+         WHERE id = $1`,
       [id],
     );
     const user = result.rows[0];
@@ -137,20 +135,82 @@ static async findAll() {
     if (!user) throw new NotFoundError(`No user: ${id}`);
   }
 
-  // new function to get the business associated with a user
-  static async getBusiness(userId) {
+  /** Fetches the list of businesses of a user by the user's id */
+  static async getUserBusinesses(userId) {
     const result = await db.query(
-      `SELECT b.*
+      `SELECT b.id, b.business_name, b.business_address, b.tax_id
        FROM businesses AS b
        JOIN users AS u ON u.id = b.user_id
        WHERE u.id = $1`,
-      [userId],
+      [userId]
     );
-    const business = result.rows[0];
+    
+    console.log('getUserBusinesses result:', result.rows);
 
-    if (!business) throw new NotFoundError(`No business associated with user: ${userId}`);
+    if (result.rows.length === 0) throw new NotFoundError(`No businesses found for user: ${userId}`);
+    return result.rows;
+  }
 
-    return business;
+  /** Fetches the detail of a business of a user by the user's id and business id */
+  static async getUserBusiness(userId, businessId) {
+    const result = await db.query(
+      `SELECT b.id, b.business_name, b.business_address, b.tax_id
+       FROM businesses AS b
+       JOIN users AS u ON u.id = b.user_id
+       WHERE u.id = $1 AND b.id = $2`,
+      [userId, businessId]
+    );
+
+    if (result.rows.length === 0) throw new NotFoundError(`No business: ${businessId} found for user: ${userId}`);
+    return result.rows[0];
+  }
+
+  /** Fetches the list of farms of a user by the user's id */
+  static async getUserFarms(userId) {
+    const result = await db.query(
+      `SELECT f.id, f.size, f.years_of_experience, f.types_of_crops, f.organic_certification, f.sustainability_practices, f.annual_farm_revenue, 
+      f.profitability, f.farm_address, f.farm_city, f.farm_state, f.farm_zip_code, f.filing_status, f.tax_forms_filed, f.previous_application, f.grant_outcome
+       FROM farms AS f
+       JOIN businesses AS b ON f.business_id = b.id
+       JOIN users AS u ON b.user_id = u.id
+       WHERE u.id = $1`,
+      [userId]
+    );
+
+    console.log('getUserFarms result:', result.rows);
+
+    if (result.rows.length === 0) throw new NotFoundError(`No farms found for user: ${userId}`);
+    return result.rows;
+  }
+
+  /** Fetches the detail of a farm of a user by the user's id and farm id */
+  static async getUserFarm(userId, farmId) {
+    const result = await db.query(
+      `SELECT f.id, f.size, f.years_of_experience, f.types_of_crops, f.organic_certification, f.sustainability_practices, f.annual_farm_revenue, 
+      f.profitability, f.farm_address, f.farm_city, f.farm_state, f.farm_zip_code, f.filing_status, f.tax_forms_filed, f.previous_application, f.grant_outcome
+       FROM farms AS f
+       JOIN businesses AS b ON f.business_id = b.id
+       JOIN users AS u ON b.user_id = u.id
+       WHERE u.id = $1 AND f.id = $2`,
+      [userId, farmId]
+    );
+
+    if (result.rows.length === 0) throw new NotFoundError(`No farm: ${farmId} found for user: ${userId}`);
+    return result.rows[0];
+  }
+
+  /** Fetches the list of applications of a user by the user's id */
+  static async getApplications(userId) {
+    const result = await db.query(
+      `SELECT a.id, a.app_proposal, a.app_status, a.app_submission_date, a.app_response_date
+       FROM applications AS a
+       JOIN users AS u ON u.id = a.user_id
+       WHERE u.id = $1`,
+      [userId]
+    );
+
+    if (result.rows.length === 0) throw new NotFoundError(`No applications found for user: ${userId}`);
+    return result.rows;
   }
 
 }

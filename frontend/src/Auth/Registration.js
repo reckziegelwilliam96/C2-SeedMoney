@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 function Registration() {
     const [step, setStep] = useState(1);
-    console.log("Rendering Registration component, current step: ", step);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userFetched = useSelector((state) => state.user.fetched);
@@ -20,7 +19,6 @@ function Registration() {
 
 
   const nextStep = useCallback(() => {
-    console.log("nextStep is being called");
     setStep((prevStep) => prevStep + 1);
   }, []);
 
@@ -33,7 +31,6 @@ function Registration() {
         dispatch(registerBusiness(data));
         break;
       case 3:
-        console.log("Dispatching registerFarm action with data: ", data)
         dispatch(registerFarm(data));
         navigate("/");
         break;
@@ -44,17 +41,14 @@ function Registration() {
 
   useEffect(() => {
     if (step === 1 && userFetched && !userLoading) {
-      console.log("userFetched is true and userLoading is false, incrementing step");
       nextStep();
     }
     if (step === 2 && businessFetched && !businessLoading) {
-      console.log("businessFetched is true and businessLoading is false, incrementing step");
       nextStep();
     }
   }, [step, userFetched, businessFetched, userLoading, businessLoading, nextStep]);
 
   const renderStep = () => {
-    console.log("Current step: ", step);
     switch(step) {
       case 1:
         return <UserRegistration onSubmit={handleRegistration} />;
