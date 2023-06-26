@@ -8,6 +8,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import userReducer from './userReducer';
 import farmReducer from './farmReducer';
 import businessReducer from './businessReducer';
+import applicationReducer from './applicationReducer';
 
 import tokenMiddleware from '../middleware/tokenMiddleware';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     farm: farmReducer,
     business: businessReducer,
+    application: applicationReducer
 });
 
 const persistConfig = {

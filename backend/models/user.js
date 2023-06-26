@@ -101,6 +101,11 @@ static async findAll() {
   }
 
   static async update(id, data) {
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR);
+    }
+
     const { setCols, values } = sqlForPartialUpdate(
       data,
       {
@@ -211,6 +216,23 @@ static async findAll() {
 
     if (result.rows.length === 0) throw new NotFoundError(`No applications found for user: ${userId}`);
     return result.rows;
+  }
+
+  static async getUserApplications(user_id) {
+    const result = await db.query(
+      `SELECT a.id, a.user_id, a.grant_id, a.farm_name, a.farm_location, a.farm_size, a.farm_revenue, a.crops_grown, a.animals_raised, a.app_proposal, a.app_status, a.app_submission_date, a.app_response_date,
+              g.grant_name, g.application_window, g.program_description
+       FROM applications AS a
+       JOIN grants AS g ON a.grant_id = g.id
+       WHERE a.user_id = $1`,
+      [user_id],
+    );
+  
+    const applications = result.rows;
+  
+    if (!applications) throw new NotFoundError(`No application: ${user_id}`);
+  
+    return applications;
   }
 
 }

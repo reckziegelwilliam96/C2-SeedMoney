@@ -33,7 +33,7 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
-router.patch("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.patch("/:id", async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, userUpdateSchema);
     if (!validator.valid) {
@@ -61,7 +61,6 @@ router.delete("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) 
 router.get("/:id/businesses",  async function (req, res, next) {
   try {
     const businesses = await User.getUserBusinesses(req.params.id);
-    console.log('Route getUserBusinesses:', businesses); 
     return res.json({ businesses });
   } catch (err) {
     return next(err);
@@ -82,7 +81,6 @@ router.get("/:id/businesses/:businessId", ensureLoggedIn , async function (req, 
 router.get("/:id/farms", async function (req, res, next) {
   try {
     const farms = await User.getUserFarms(req.params.id);
-    console.log('Route getUserFarms:', farms); 
     return res.json({ farms });
   } catch (err) {
     return next(err);
@@ -102,7 +100,7 @@ router.get("/:id/farms/:farmId", ensureCorrectUserOrAdmin, async function (req, 
 // route to get all applications for a user
 router.get("/:id/applications", async function (req, res, next) {
   try {
-    const applications = await User.getApplications(req.params.id);
+    const applications = await User.getUserApplications(req.params.id);
     return res.json({ applications });
   } catch (err) {
     return next(err);

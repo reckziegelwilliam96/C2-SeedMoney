@@ -36,7 +36,7 @@ router.get('/:id', ensureLoggedIn, async function(req, res, next) {
     }
   });
   
-  router.patch('/:id', ensureLoggedIn, async function(req, res, next) {
+  router.patch('/:id', async function(req, res, next) {
     try {
       const validator = jsonschema.validate(req.body, businessUpdateSchema);
       if (!validator.valid) {

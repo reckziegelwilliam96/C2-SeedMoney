@@ -37,18 +37,21 @@ class Application {
 
     static async getAll(user_id) {
       const result = await db.query(
-        `SELECT user_id, grant_id, application_status, application_submission_date, application_response_data
-        FROM applications
-        WHERE user_id = $1`,
+        `SELECT a.user_id, a.grant_id, a.farm_name, a.farm_location, a.farm_size, a.farm_revenue, a.crops_grown, a.animals_raised, a.app_proposal, a.app_status, a.app_submission_date, a.app_response_date,
+                g.grant_name, g.application_window, g.program_description
+         FROM applications AS a
+         JOIN grants AS g ON a.grant_id = g.id
+         WHERE a.user_id = $1`,
         [user_id],
       );
-
+    
       const applications = result.rows;
-
-      if (!applications) throw new NotFoundError(`No application: ${user_ud}`);
-
-      return application;
+    
+      if (!applications) throw new NotFoundError(`No application: ${user_id}`);
+    
+      return applications;
     }
+    
   
     static async update(user_id, data) {
       const { setCols, values } = sqlForPartialUpdate(

@@ -22,13 +22,13 @@ const RoutesComponent = ({onLogout, logoutKey}) => {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login/>} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:userId" element={<EditProfile />} />
         <Route path="/grants" element={<Grants />} />
         <Route path="/grants/:grantId" element={<GrantDetail />} />
-        <Route path="/applications/:grantId" element={<ApplicationForm />} />
-        <Route path="/applications/:userId" element={<MyApplications />} />
-        <Route path="/applications/:applicationId" element={<ApplicationDetail />} />
+        <Route path="/applications" element={<MyApplications />} />
+        <Route path="/applications/form/:grantId" element={<ApplicationForm />} />
+        <Route path="/applications/detail/:applicationId" element={<ApplicationDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

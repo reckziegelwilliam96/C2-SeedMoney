@@ -20,7 +20,7 @@ const GrantDetail = () => {
     }, [grantId]);
 
   const handleApplyClick = () => {
-    navigate(`/applications/${grantId}`)
+    navigate(`/applications/form/${grantId}`)
   };
 
   if (isLoading){
@@ -42,7 +42,6 @@ const GrantDetail = () => {
         <CardText>{grant.governing_law}</CardText>
         <CardText>{grant.program_id}</CardText>
         <Button onClick={handleApplyClick}>Apply</Button>
-        {/* add more details as needed */}
       </CardBody>
     </Card>
   );

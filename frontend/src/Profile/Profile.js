@@ -28,16 +28,14 @@ function Profile() {
         const userDetails = await SeedMoneyApi.getUser(userId);
         const farmDetails = await SeedMoneyApi.getUserFarms(userId);
         const businessDetails = await SeedMoneyApi.getUserBusinesses(userId);      
-        const userApplications = await SeedMoneyApi.getApplications(userId);
+        const userApplications = await SeedMoneyApi.getUserApplications(userId);
 
-        console.log("Data fetched");
         setUserData(userDetails);
         setFarmData(farmDetails);
         setBusinessData(businessDetails);
         setApplications(userApplications);
         setIsLoading(false);
       } catch (error) {
-        console.error("Error fetching data", error.message);
         setError(error);
       }
     }
@@ -53,13 +51,14 @@ function Profile() {
   console.log("Farm Data:", farmData); // Debug
   console.log("Business Data:", businessData); // Debug
   console.log("Applications Data:", applications); // Debug
+
   return (
     <div>
       <UserCard userData={userData} />
       {farmData.map((farm, idx) => <FarmCard key={idx} farmData={farm} />)}
       {businessData.map((business, idx) => <BusinessCard key={idx} businessData={business} />)}
       {applications.map((application, idx) => <ApplicationCard key={idx} applicationData={application} />)}
-      <Button onClick={() => navigate(`profile/edit`)}>Edit Profile</Button>
+      <Button onClick={() => navigate(`/profile/${userId}}`)}>Edit Profile</Button>
     </div>
   );
 }

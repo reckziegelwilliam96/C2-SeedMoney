@@ -134,6 +134,13 @@ class SeedMoneyApi {
     // Return the response
     return res;
   }
+  //Update Business
+  static async updateBusiness(id, data) {
+    // Make the PATCH request using our unified request function
+    let res = await this.request(`businesses/${id}`, data, 'patch');
+    // Return the updated user data
+    return res.business;
+  }
 
   // Register Farm
   static async registerFarm({ 
@@ -178,6 +185,14 @@ class SeedMoneyApi {
     let res = await this.request(`farms/register`, data, "post");
     // Return the response
     return res;
+  }
+
+  //Update Farm
+  static async updateFarm(id, data) {
+    // Make the PATCH request using our unified request function
+    let res = await this.request(`farms/${id}`, data, 'patch');
+    // Return the updated user data
+    return res.farm;
   }
 
   // Get Grant
@@ -236,10 +251,10 @@ class SeedMoneyApi {
   }
 
   //Get All Applications
-  static async getApplications(userId) {
+  static async getUserApplications(id) {
 
-    let res = await this.request(`users/${userId}/applications`);
-
+    let res = await this.request(`users/${id}/applications`);
+    
     return res.applications;
   }
 

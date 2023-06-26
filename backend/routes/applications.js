@@ -29,12 +29,12 @@ router.post('/', async(req, res, next) => {
 });
 
 router.get('/', async(req, res, next) => {
-  const applications = await Application.getAll(req.params.id);
+  const applications = await Application.getAll(req.body);
   res.json({ applications });
 })
   
 router.get('/:id', async (req, res, next) => {
-  const application = await Application.get(req.params.id);
+  const application = await Application.get(req.body);
   res.json({ application });
 });
 

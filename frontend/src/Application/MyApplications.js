@@ -5,17 +5,17 @@ import SeedMoneyApi from '../SeedMoneyApi';
 
 
 const MyApplications = () => {
-  const { id } = useSelector(state => state.user.id)
+  const id = useSelector(state => state.user.user.id)
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getApplications = useCallback(async() => {
     setIsLoading(true);
-    let applicationsPromise = SeedMoneyApi.getApplications(id)
+    let applicationsPromise = SeedMoneyApi.getUserApplications(id)
     let applicationsData = await applicationsPromise;
-    setApplications(applicationsData.applications);
+    setApplications(applicationsData);
     setIsLoading(false);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getApplications();

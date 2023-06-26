@@ -32,7 +32,7 @@ router.get("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
     res.json({ farm });
 });
 
-router.patch("/:id", ensureCorrectUserOrAdmin, async function (req, res, next) {
+router.patch("/:id", async function (req, res, next) {
     try {
         const validator = jsonschema.validate(req.body, farmUpdateSchema);
         if (!validator.valid) {
