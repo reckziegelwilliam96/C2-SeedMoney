@@ -1,18 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import NavBar from './components/NavBar';
+import NavBar from './NavBar';
 import Home from './Home';
 import NotFound from './NotFound';
-import Registration from './Auth/Registration';
-import Login from './Auth/Login';
-import Profile from './Profile/Profile';
-import EditProfile from './Profile/EditProfile';
-import Grants from './Grant/Grant';
-import GrantDetail from './Grant/GrantDetail';
-import MyApplications from './Application/MyApplications';
-import ApplicationDetail from './Application/ApplicationDetail';
-import ApplicationForm from './Application/ApplicationForm';
+import Registration from '../Auth/Registration';
+import Login from '../Auth/Login';
+import Profile from '../Profile/Profile';
+import EditProfile from '../Profile/EditProfile';
+import Grants from '../Grant/Grant';
+import GrantDetail from '../Grant/GrantDetail';
+import MyApplications from '../Application/MyApplications';
+import ApplicationDetail from '../Application/ApplicationDetail';
+import ApplicationForm from '../Application/ApplicationForm';
 
 const RoutesComponent = ({onLogout, logoutKey}) => {
   return (

@@ -51,7 +51,7 @@ function Profile() {
       <Grid item xs={12}>
         <Card sx={{ backgroundColor: theme.palette.accent1.main, boxShadow: theme.shadows[1] }}>
           <CardContent>
-            <Typography variant="h5" component="div">Profile</Typography>
+            <Typography variant="h6" component="div">Profile</Typography>
           </CardContent>
         </Card>
       </Grid>

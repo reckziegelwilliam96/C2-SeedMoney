@@ -85,8 +85,6 @@ class SeedMoneyApi {
     return res.user;
   }
 
-  // ...
-
   // Get all businesses for a user
   static async getUserBusinesses(userId) {
     // Make the GET request using our unified request function
@@ -96,12 +94,12 @@ class SeedMoneyApi {
   }
 
   // // Get a specific business for a user
-  // static async getUserBusiness(userId) {
-  //   // Make the GET request using our unified request function
-  //   let res = await this.request(`users/${userId}/businesses`);
-  //   // Return the data
-  //   return res.data;
-  // }
+  static async getUserBusiness(userId) {
+    // Make the GET request using our unified request function
+    let res = await this.request(`users/${userId}/businesses`);
+    // Return the data
+    return res.data;
+  }
 
   // Get all farms for a user
   static async getUserFarms(userId) {

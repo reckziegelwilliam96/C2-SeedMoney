@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RoutesComponent from './Routes';
+import RoutesComponent from './components/Routes';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/reducers/store';
