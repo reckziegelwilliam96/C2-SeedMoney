@@ -1,32 +1,43 @@
 import React from 'react';
-import { Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Typography, Button, Box, Container, Paper, ThemeProvider } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { theme } from './ThemeStyles'; // Please adjust this import path to where your theme is actually located
 
 const Home = () => {
     const { user, token } = useSelector((state) => state.user);
 
     return (
-        <div className="home-container">
-            <Card>
-                <CardBody>
-                    <CardTitle>SeedMoney</CardTitle>
-                </CardBody>
-                <CardText>Plant tomorrow's financial seeds today..</CardText>
-                {(token && user) ? (
-                <CardText>Welcome back, {user?.first_name}</CardText>
-                ) : (
-                    <div className="button-container">
-                        <Link to="/login">
-                            <Button color="primary">Log In</Button>
-                        </Link>
-                        <Link to="/register">
-                            <Button color="primary">Register</Button>
-                        </Link>
-                    </div>
-                )}
-            </Card>
-        </div>
+        <ThemeProvider theme={theme}>
+            <Container maxWidth="sm">
+                <Box my={4}>
+                    <Paper elevation={3} sx={{ padding: 3 }}>
+                        <Typography variant="h4" gutterBottom>
+                            SeedMoney
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            Plant tomorrow's financial seeds today..
+                        </Typography>
+                        {(token && user) ? (
+                            <Typography variant="h6">Welcome back, {user?.first_name}</Typography>
+                        ) : (
+                            <Box mt={2}>
+                                <Link to="/login" style={{ textDecoration: 'none' }}>
+                                    <Button variant="contained" color="primary" sx={{ mr: 2 }}>
+                                        Log In
+                                    </Button>
+                                </Link>
+                                <Link to="/register" style={{ textDecoration: 'none' }}>
+                                    <Button variant="contained" color="secondary">
+                                        Register
+                                    </Button>
+                                </Link>
+                            </Box>
+                        )}
+                    </Paper>
+                </Box>
+            </Container>
+        </ThemeProvider>
     );
 };
 

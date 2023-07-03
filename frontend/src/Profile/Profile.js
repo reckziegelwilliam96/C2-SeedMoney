@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Button } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, CardContent, Typography, Grid, useTheme, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -11,15 +11,15 @@ import ApplicationCard from './ApplicationCard';
 
 function Profile() {
   const navigate = useNavigate();
+  const theme = useTheme();
 
-
-  const userId = useSelector((state) => state.user.user.id)
+  const userId = useSelector((state) => state.user.user.id);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState(null);
-  const [farmData, setFarmData] = useState(null);
-  const [businessData, setBusinessData] = useState(null);
-  const [applications, setApplications] = useState(null);
+  const [farmData, setFarmData] = useState([]);
+  const [businessData, setBusinessData] = useState([]);
+  const [applications, setApplications] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,7 +27,7 @@ function Profile() {
         setIsLoading(true);
         const userDetails = await SeedMoneyApi.getUser(userId);
         const farmDetails = await SeedMoneyApi.getUserFarms(userId);
-        const businessDetails = await SeedMoneyApi.getUserBusinesses(userId);      
+        const businessDetails = await SeedMoneyApi.getUserBusinesses(userId);
         const userApplications = await SeedMoneyApi.getUserApplications(userId);
 
         setUserData(userDetails);
@@ -44,22 +44,39 @@ function Profile() {
   }, [userId]);
 
   if (error) return <div>Error: {error.message}</div>;
-  if (isLoading) return <div>Loading...</div>;
-
-
-  console.log("User Data:", userData); // Debug
-  console.log("Farm Data:", farmData); // Debug
-  console.log("Business Data:", businessData); // Debug
-  console.log("Applications Data:", applications); // Debug
+  if (isLoading) return <CircularProgress />;
 
   return (
-    <div>
-      <UserCard userData={userData} />
-      {farmData.map((farm, idx) => <FarmCard key={idx} farmData={farm} />)}
-      {businessData.map((business, idx) => <BusinessCard key={idx} businessData={business} />)}
-      {applications.map((application, idx) => <ApplicationCard key={idx} applicationData={application} />)}
-      <Button onClick={() => navigate(`/profile/${userId}}`)}>Edit Profile</Button>
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Card sx={{ backgroundColor: theme.palette.accent1.main, boxShadow: theme.shadows[1] }}>
+          <CardContent>
+            <Typography variant="h5" component="div">Profile</Typography>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <UserCard userData={userData} />
+      </Grid>
+      {farmData.map((farm, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <FarmCard farmData={farm} />
+        </Grid>
+      ))}
+      {businessData.map((business, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <BusinessCard businessData={business} />
+        </Grid>
+      ))}
+      {applications.map((application, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <ApplicationCard applicationData={application} />
+        </Grid>
+      ))}
+      <Grid item xs={12}>
+        <Button onClick={() => navigate(`/profile/${userId}`)}>Edit Profile</Button>
+      </Grid>
+    </Grid>
   );
 }
 

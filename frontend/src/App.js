@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/reducers/store';
 import { logout } from './store/actions/userActions';
+import { ThemeProvider } from '@mui/material';
+import { theme } from './ThemeStyles';
 
 function App() {
   const [logoutKey, setLogoutKey] = useState(Date.now());
@@ -18,11 +20,13 @@ function App() {
   };
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RoutesComponent onLogout={handleLogout} logoutKey={logoutKey} />
-      </PersistGate>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RoutesComponent onLogout={handleLogout} logoutKey={logoutKey} />
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

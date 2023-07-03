@@ -1,17 +1,22 @@
 import React from 'react';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
+import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { cardStyles } from '../ThemeStyles';
 
 const GrantCard = ({ grant }) => {
-    return (
-        <Card body>
-            <CardTitle tag="h5">{grant.grant_name}</CardTitle>
-            <CardText>{grant.program_description}</CardText>
-            <Button tag={Link} to={`/grants/${grant.id}`}>
-                View Details
-            </Button>
-        </Card>
-    );
+  return (
+    <Card sx={cardStyles.root}>
+      <CardContent>
+        <Typography variant="h5" component="div">{grant.grant_name}</Typography>
+        <Typography variant="body1">{grant.program_description}</Typography>
+      </CardContent>
+      <CardActions>
+        <Button component={Link} to={`/grants/${grant.id}`} variant="contained" sx={cardStyles.button}>
+          View Details
+        </Button>
+      </CardActions>
+    </Card>
+  );
 };
 
 export default GrantCard;

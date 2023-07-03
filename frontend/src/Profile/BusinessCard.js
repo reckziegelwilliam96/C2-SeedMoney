@@ -1,15 +1,22 @@
 import React from 'react';
-import { Card, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardContent, Typography } from '@mui/material';
+import { cardStyles } from '../ThemeStyles';
 
 function BusinessCard({ businessData }) {
   return (
-    <Card>
-      <CardBody>
-        <CardTitle tag="h5">Business Information</CardTitle>
-        <p>Business Name: {businessData.business_name}</p>
-        <p>Business Address: {businessData.business_address}</p>
-        <p>Tax ID: {businessData.tax_id}</p>
-      </CardBody>
+    <Card sx={cardStyles.root}>
+      <CardContent>
+        <Typography variant="h5" component="div">Business Information</Typography>
+        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
+          Business Name: {businessData.business_name}
+        </Typography>
+        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
+          Business Address: {businessData.business_address}
+        </Typography>
+        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
+          Tax ID: {businessData.tax_id}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }

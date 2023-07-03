@@ -21,10 +21,10 @@ const Grants = () => {
     if (isLoading) {
         return <p> Loading &hellip; </p>;
     }
-    console.log("grants before rendering GrantList:", grants); // Debug
+
     return (
         <div className="Grants">
-            <GrantList grants={grants} />
+            <GrantList grants={grants}/>
         </div>
 
     );

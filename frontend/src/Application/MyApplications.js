@@ -2,19 +2,23 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ApplicationList from './ApplicationList';
 import { useSelector } from 'react-redux';
 import SeedMoneyApi from '../SeedMoneyApi';
-
+import { CircularProgress } from '@mui/material';
 
 const MyApplications = () => {
-  const id = useSelector(state => state.user.user.id)
+  const id = useSelector((state) => state.user.user.id);
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getApplications = useCallback(async() => {
+  const getApplications = useCallback(async () => {
     setIsLoading(true);
-    let applicationsPromise = SeedMoneyApi.getUserApplications(id)
-    let applicationsData = await applicationsPromise;
-    setApplications(applicationsData);
-    setIsLoading(false);
+    try {
+      const applicationsData = await SeedMoneyApi.getUserApplications(id);
+      setApplications(applicationsData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+      setIsLoading(false);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -22,7 +26,7 @@ const MyApplications = () => {
   }, [getApplications]);
 
   if (isLoading) {
-    return <p> Loading &hellip; </p>;
+    return <CircularProgress />;
   }
 
   return (

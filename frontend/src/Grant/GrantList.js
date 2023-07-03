@@ -1,19 +1,18 @@
 import React from 'react';
 import GrantCard from './GrantCard';
-import { Container, Row, Col } from 'reactstrap';
+import { Grid } from '@mui/material';
+import { listStyles } from '../ThemeStyles';
 
 const GrantList = ({ grants }) => {
-    return (
-        <Container>
-            <Row>
-                {grants.map((grant, index) => (
-                    <Col sm="4" key={index}>
-                        <GrantCard grant={grant} />
-                    </Col>
-                ))}
-            </Row>
-        </Container>
-    );
+  return (
+    <Grid container spacing={2}>
+      {grants.map((grant, index) => (
+        <Grid item xs={12} s={4} m={6} key={index} className={listStyles.container}>
+          <GrantCard grant={grant} />
+        </Grid>
+      ))}
+    </Grid>
+  );
 };
 
 export default GrantList;
