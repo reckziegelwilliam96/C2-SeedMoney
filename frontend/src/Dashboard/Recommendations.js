@@ -1,44 +1,87 @@
-export const getRecommendedApplications = (applications, farmerData) => {
-    const recommended = applications.filter(application => {
-      const score = calculateApplicationScore(application, farmerData);
-      return score > 0.3; // Example threshold for recommendation
+export const getRecommendedApplications = (applications, farmData) => {
+    if (!farmData) {
+      return [];
+    }
+  
+    // Extract relevant farm data variables
+    const {
+      size,
+      years_of_experience,
+      types_of_crops,
+      organic_certification,
+      sustainability_practices,
+      annual_farm_revenue,
+      profitability,
+    } = farmData;
+  
+    // Calculate scores for each application based on farm data variables and grant requirements
+    const scoredApplications = applications.map((application) => {
+      const {
+        size_requirement,
+        years_of_experience_requirement,
+        crops_requirement,
+        organic_certification_requirement,
+        sustainability_practices_requirement,
+        annual_revenue_requirement,
+        profitability_requirement,
+      } = application.criteria;
+  
+      // Calculate score based on matching farm data variables and grant requirements
+      let score = 0;
+  
+      if (size_requirement <= size) {
+        score += 1;
+      }
+  
+      if (years_of_experience_requirement <= years_of_experience) {
+        score += 1;
+      }
+  
+      if (checkCropsRequirement(types_of_crops, crops_requirement)) {
+        score += 1;
+      }
+  
+      if (organic_certification_requirement && organic_certification) {
+        score += 1;
+      }
+  
+      if (sustainability_practices_requirement && sustainability_practices) {
+        score += 1;
+      }
+  
+      if (annual_revenue_requirement <= annual_farm_revenue) {
+        score += 1;
+      }
+  
+      if (profitability_requirement <= profitability) {
+        score += 1;
+      }
+  
+      return {
+        application,
+        score,
+      };
     });
   
-    recommended.sort((a, b) => calculateApplicationScore(b, farmerData) - calculateApplicationScore(a, farmerData));
+    // Sort applications based on score in descending order
+    scoredApplications.sort((a, b) => b.score - a.score);
   
-    return recommended;
+    // Extract recommended applications with non-zero scores
+    const recommendedApplications = scoredApplications
+      .filter((scoredApplication) => scoredApplication.score > 0)
+      .map((scoredApplication) => scoredApplication.application);
+  
+    return recommendedApplications;
   };
   
-  const calculateApplicationScore = (application, farmerData) => {
-    // Implement your scoring logic based on farmer data and application criteria
-    // Return a score or similarity measure indicating the suitability of the application for the farmer
-    // Adjust the logic and factors based on your specific recommendation algorithm
+  // Helper function to check if the farm's types of crops match the grant's requirement
+  const checkCropsRequirement = (farmCrops, grantCrops) => {
+    if (grantCrops.length === 0) {
+      return true; // Grant does not have specific crop requirements
+    }
   
-    // Example scoring logic based on farm size and crops grown
-    const farmSizeScore = calculateFarmSizeScore(application.farmSize, farmerData.farmSize);
-    const cropsGrownScore = calculateCropsGrownScore(application.cropsGrown, farmerData.cropsGrown);
-  
-    // Example weighting of factors (adjust as needed)
-    const farmSizeWeight = 0.6;
-    const cropsGrownWeight = 0.4;
-  
-    // Combine scores using weighted average
-    const score = farmSizeWeight * farmSizeScore + cropsGrownWeight * cropsGrownScore;
-  
-    return score;
-  };
-  
-  const calculateFarmSizeScore = (applicationFarmSize, farmerFarmSize) => {
-    // Implement scoring logic for farm size (example calculation)
-    const farmSizeDifference = Math.abs(applicationFarmSize - farmerFarmSize);
-    const score = 1 - farmSizeDifference / farmerFarmSize;
-    return score;
-  };
-  
-  const calculateCropsGrownScore = (applicationCropsGrown, farmerCropsGrown) => {
-    // Implement scoring logic for crops grown (example calculation)
-    const commonCrops = applicationCropsGrown.filter(crop => farmerCropsGrown.includes(crop));
-    const score = commonCrops.length / applicationCropsGrown.length;
-    return score;
+    // Check if any of the farm's crops match the grant's required crops
+    const matchingCrops = farmCrops.filter((crop) => grantCrops.includes(crop));
+    return matchingCrops.length > 0;
   };
   
