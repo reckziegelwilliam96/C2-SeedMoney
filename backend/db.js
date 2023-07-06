@@ -18,4 +18,6 @@ if (process.env.NODE_ENV === "production") {
 
 db.connect();
 
+db.session = [];
+
 module.exports = db;

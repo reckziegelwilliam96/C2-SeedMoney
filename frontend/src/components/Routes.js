@@ -8,11 +8,13 @@ import Registration from '../Auth/Registration';
 import Login from '../Auth/Login';
 import Profile from '../Profile/Profile';
 import EditProfile from '../Profile/EditProfile';
-import Grants from '../Grant/Grant';
+import Program from '../Program/Program';
+import Grant from '../Grant/Grant';
 import GrantDetail from '../Grant/GrantDetail';
 import MyApplications from '../Application/MyApplications';
 import ApplicationDetail from '../Application/ApplicationDetail';
 import ApplicationForm from '../Application/ApplicationForm';
+
 
 const RoutesComponent = ({onLogout, logoutKey}) => {
   return (
@@ -24,7 +26,8 @@ const RoutesComponent = ({onLogout, logoutKey}) => {
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:userId" element={<EditProfile />} />
-        <Route path="/grants" element={<Grants />} />
+        <Route path="/programs" element={<Program />} />
+        <Route path="/grants" element={<Grant />} />
         <Route path="/grants/:grantId" element={<GrantDetail />} />
         <Route path="/applications" element={<MyApplications />} />
         <Route path="/applications/form/:grantId" element={<ApplicationForm />} />

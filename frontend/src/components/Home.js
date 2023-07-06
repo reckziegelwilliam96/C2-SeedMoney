@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Typography, Button, Box, Container, Paper, ThemeProvider } from '@mui/material';
 import Dashboard from '../Dashboard/Dashboard';
+import Program from '../Program/Program';
 import { Link } from 'react-router-dom';
 import { theme } from '../ThemeStyles'; // Please adjust this import path to where your theme is actually located
 
@@ -10,7 +11,7 @@ const Home = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="sm">
+      <Container maxWidth="xl">
         <Box my={4} display="flex" flexDirection="column" alignItems="center">
           <Paper elevation={3} sx={{ padding: 3, width: '100%', maxWidth: 400 }}>
             <Typography variant="h4" gutterBottom align="center">
@@ -26,6 +27,8 @@ const Home = () => {
                 </Typography>
                 <hr />
                 <Dashboard />
+                <hr />
+                <Program />
               </>
             ) : (
               <Box mt={2} display="flex" justifyContent="center">

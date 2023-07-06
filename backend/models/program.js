@@ -5,6 +5,7 @@ const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
 
 class Program {
+    // Create a new program
     static async create(data) {
         const result = await db.query(
             `INSERT INTO programs (title, link, description) VALUES ($1, $2, $3) RETURNING *`, 
@@ -17,7 +18,14 @@ class Program {
         
         return program;
     }
+    
+    // Get all programs
+    static async getAll() {
+        const result = await db.query(`SELECT * FROM programs`);
+        return result.rows;
+      }
 
+    // Get a specific program by ID
     static async get(programID) {
         const result = await db.query(
             `SELECT * 
@@ -31,7 +39,7 @@ class Program {
     
         return program;
     }
-    
+    // Update a specific program by ID
     static async update(programID, data) {
         const { setCols, values } = sqlForPartialUpdate(
             data,
@@ -53,7 +61,7 @@ class Program {
     
         return program;
     }
-
+    // Delete a specific program by ID
     static async remove(programID) {
         const result = await db.query(
           `DELETE

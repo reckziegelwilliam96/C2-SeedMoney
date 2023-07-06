@@ -193,6 +193,14 @@ class SeedMoneyApi {
     return res.farm;
   }
 
+  // Get all programs
+  static async getPrograms(params = {}) {
+    // Make the GET request using our unified request function
+    let res = await this.request(`programs`, params);
+    // Return the programs data
+    return res.programs;
+  }
+
   // Get Grant
   static async getGrant(id) {
     // Make the GET request using our unified request function

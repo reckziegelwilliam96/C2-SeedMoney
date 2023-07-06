@@ -40,15 +40,15 @@ CREATE TABLE farms (
 -- Creating the programs table
 CREATE TABLE programs (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(100),
-  link VARCHAR(200),
+  title TEXT,
+  link TEXT,
   description TEXT
 );
 
 -- Creating the grants table
 CREATE TABLE grants (
   id SERIAL PRIMARY KEY,
-  grant_name VARCHAR(100),
+  grant_name TEXT,
   application_window BOOLEAN,
   program_description TEXT,
   applicant_eligibility TEXT,

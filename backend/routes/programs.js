@@ -28,6 +28,16 @@ router.post("/", ensureAdmin, async function (req, res, next) {
       }
 });
 
+// Get all programs
+router.get("/", async function (req, res, next) {
+    try {
+      const programs = await Program.getAll();
+      return res.json({ programs });
+    } catch (err) {
+      return next(err);
+    }
+  });
+
 // Get a specific program by ID
 router.get("/:id", ensureAdmin, async function (req, res, next) {
     try {

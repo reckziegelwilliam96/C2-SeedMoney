@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, Paper, Container, FormControl, InputLabel, Select, MenuItem, Checkbox } from '@mui/material';
+import { Box, Typography, Button, Paper, Container, FormControl, InputLabel, Select, MenuItem, Checkbox, TextField } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import FormErrors from './FormErrors';
 import { formStyles } from '../ThemeStyles';
@@ -16,10 +16,24 @@ const Form = ({ fields, onSubmit, buttonText }) => {
         [name]: event.target.checked
       }));
     } else if (type === 'multiselect') {
-      setValues(prevValues => ({
-        ...prevValues,
-        [name]: [...event.target.options].filter(option => option.selected).map(option => option.value)
-      }));
+      const option = event.target.value;
+      const isChecked = event.target.checked;
+      if (option === 'Other' && isChecked) {
+        setValues(prevValues => ({
+          ...prevValues,
+          [name]: prevValues[name]?.filter(value => value !== 'Other')
+        }));
+      } else if (isChecked) {
+        setValues(prevValues => ({
+          ...prevValues,
+          [name]: [...(prevValues[name] || []), option]
+        }));
+      } else {
+        setValues(prevValues => ({
+          ...prevValues,
+          [name]: prevValues[name]?.filter(value => value !== option)
+        }));
+      }
     } else if (type === 'number') {
       setValues(prevValues => ({
         ...prevValues,
@@ -31,6 +45,14 @@ const Form = ({ fields, onSubmit, buttonText }) => {
         [name]: event.target.value
       }));
     }
+  };
+
+  const handleInputChange = (event, name) => {
+    const inputValue = event.target.value;
+    setValues(prevValues => ({
+      ...prevValues,
+      [name]: prevValues[name]?.includes('Other') ? ['Other', inputValue] : [inputValue]
+    }));
   };
 
   const handleSubmit = (event) => {
@@ -62,19 +84,25 @@ const Form = ({ fields, onSubmit, buttonText }) => {
             <Box key={field.name} sx={{ marginBottom: theme.spacing(2) }}>
               <Typography variant="body1" sx={{ color: theme.palette.secondary.main }}>{field.label}:</Typography>
               {field.type === 'multiselect' ? (
-                <FormControl fullWidth>
-                  <InputLabel>{field.label}</InputLabel>
-                  <Select
-                    multiple
-                    value={values[field.name] || []}
-                    onChange={event => handleChange(event, field.name, field.type)}
-                    style={{ backgroundColor: formStyles.input.backgroundColor, borderColor: formStyles.input.borderColor }}
-                  >
-                    {field.options.map(option => (
-                      <MenuItem key={option} value={option}>{option}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <Box>
+                  {field.options.map(option => (
+                    <label key={option}>
+                      <Checkbox
+                        checked={values[field.name]?.includes(option) || false}
+                        onChange={event => handleChange(event, field.name, field.type)}
+                        value={option}
+                      />
+                      <span style={{ color: theme.palette.secondary.main }}>{option}</span>
+                    </label>
+                  ))}
+                  {values[field.name]?.includes('Other') && (
+                    <TextField
+                      value={values[field.name]?.filter(option => option !== 'Other').join(', ')}
+                      onChange={event => handleInputChange(event, field.name)}
+                      style={{ backgroundColor: formStyles.input.backgroundColor, borderColor: formStyles.input.borderColor }}
+                    />
+                  )}
+                </Box>
               ) : field.type === 'checkbox' ? (
                 <label>
                   <Checkbox
