@@ -66,7 +66,7 @@ A typical user flow for the website would be as follows:
 7. The user can view and edit their profile in the User Profile page.
 
 ### User Flow
-g)
+![User Flow](./user-flows-v1.jpg)
 
 ## 4. Technology Stack
 
