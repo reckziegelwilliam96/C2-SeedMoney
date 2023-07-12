@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import Form from '../components/Form';
@@ -8,6 +8,7 @@ const ApplicationForm = () => {
     const { grantId } = useParams();
     const userId = useSelector((state) => state.user.user.id);
     const navigate = useNavigate();
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
     const fields = [
         { name: 'farmName', label: 'Farm Name', initialValue: '', type: 'text' },
@@ -19,8 +20,13 @@ const ApplicationForm = () => {
         { name: 'appProposal', label: 'Brief Description of Your Farm and Needs', initialValue: '', type: 'textarea' }
     ];
 
+    if (formSubmitted) {
+        navigate('/');
+    }
+
     const handleApplication = async (data) => {
         try {
+            setFormSubmitted(false);
             const applicationData = {
                 userId: userId,
                 grantId: Number(grantId),
@@ -28,13 +34,8 @@ const ApplicationForm = () => {
                 animalsRaised: Array.isArray(data.animalsRaised) ? data.animalsRaised.join(', ') : data.animalsRaised,
                 ...data
             };
-            console.log(applicationData);
-            const response = await SeedMoneyApi.createApplication(applicationData);
-            if (response.status === 200) {
-                setTimeout(() => navigate('/'), 0);
-            } else {
-                // Handle application error
-            }
+            await SeedMoneyApi.createApplication(applicationData);
+            setFormSubmitted(true);
         } catch (error) {
             console.error(error);
         }

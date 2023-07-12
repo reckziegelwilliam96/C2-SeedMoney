@@ -1,5 +1,7 @@
 const initialState = {
     application: null,
+    fetched: false,
+    loading: false
 };
 
 const applicationReducer = (state = initialState, action) => {
@@ -8,11 +10,15 @@ const applicationReducer = (state = initialState, action) => {
             return {
                 ...state,
                 application: action.payload,
+                fetched: true,
+                loading: false
             };
         case 'REMOVE_CURRENT_APPLICATION':
             return {
                 ...state,
                 application: null,
+                fetched: false,
+                loading: false
             };
         default:
             return state;

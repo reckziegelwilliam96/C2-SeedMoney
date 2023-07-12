@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { cardStyles } from '../ThemeStyles';
+import { cardStyles } from '../components/CardStyles';
 
 function ApplicationCard({ applicationData }) {
   return (

@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, CardActions, Button } from '@mui/materia
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentApplication, removeCurrentApplication } from '../store/actions/applicationActions';
-import { cardStyles } from '../ThemeStyles';
+import { cardStyles } from '../components/CardStyles';
 
 const ApplicationCard = ({ applicationData }) => {
   const currentApplication = useSelector((state) => state.application.application);

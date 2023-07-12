@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { cardStyles } from '../components/CardStyles';
+import { cardStyles } from './CardStyles';
 
 function BusinessCard({ businessData }) {
   return (
@@ -9,12 +9,6 @@ function BusinessCard({ businessData }) {
         <Typography variant="h5" component="div">Business Information</Typography>
         <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
           Business Name: {businessData.business_name}
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
-          Business Address: {businessData.business_address}
-        </Typography>
-        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
-          Tax ID: {businessData.tax_id}
         </Typography>
       </CardContent>
     </Card>

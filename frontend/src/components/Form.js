@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, Paper, Container, FormControl, InputLabel, Select, MenuItem, Checkbox, TextField } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import FormErrors from './FormErrors';
-import { formStyles } from '../ThemeStyles';
+import { formStyles } from './FormStyles';
 
 const Form = ({ fields, onSubmit, buttonText }) => {
   const theme = useTheme();

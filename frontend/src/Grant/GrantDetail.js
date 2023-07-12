@@ -4,7 +4,7 @@ import { Card, CardSubtitle, CardContent, Typography, Button, CircularProgress, 
 import { useDispatch } from 'react-redux';
 import { setCurrentApplication, removeCurrentApplication } from '../store/actions/applicationActions';
 import SeedMoneyApi from '../SeedMoneyApi';
-import { cardStyles } from '../ThemeStyles';
+import { cardStyles } from '../components/CardStyles';
 
 const GrantDetail = () => {
   const { grantId } = useParams();

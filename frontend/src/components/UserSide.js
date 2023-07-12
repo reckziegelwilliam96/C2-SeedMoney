@@ -1,16 +1,15 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { cardStyles } from '../components/CardStyles';
 
 function UserCard({ userData }) {
   return (
-    <Card sx={cardStyles.root}>
+    <Card>
       <CardContent>
-        <Typography variant="h5" component="div">User Profile</Typography>
-        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
+        <Typography variant="h7" component="div">User Profile</Typography>
+        <Typography variant="body1">
           Name: {userData.first_name} {userData.last_name}
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
+        <Typography variant="body1">
           Email: {userData.email}
         </Typography>
       </CardContent>

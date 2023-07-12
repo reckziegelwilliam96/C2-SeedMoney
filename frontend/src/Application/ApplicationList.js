@@ -1,8 +1,8 @@
 import React from 'react';
 import ApplicationCard from './ApplicationCard';
 import { Grid, Card, CardContent, Typography } from '@mui/material';
-import { applicationStyles } from '../ThemeStyles';
-import { theme } from '../ThemeStyles';
+import { applicationStyles } from './ApplicationStyles';
+import { theme } from '../components/ThemeStyles';
 
 const ApplicationList = ({ applications }) => {
   return (

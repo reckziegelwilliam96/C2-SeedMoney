@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/reducers/store';
 import { logout } from './store/actions/userActions';
 import { ThemeProvider } from '@mui/material';
-import { theme } from './ThemeStyles';
+import { theme } from './components/ThemeStyles';
 
 function App() {
   const [logoutKey, setLogoutKey] = useState(Date.now());

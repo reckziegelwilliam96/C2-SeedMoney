@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardActions, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { cardStyles } from '../ThemeStyles';
+import { cardStyles } from '../components/CardStyles';
 
 const GrantCard = ({ grant }) => {
   return (

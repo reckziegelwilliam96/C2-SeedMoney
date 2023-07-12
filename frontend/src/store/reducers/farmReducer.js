@@ -1,5 +1,7 @@
 const initialState = {
-    farm: null
+    farm: null,
+    fetched: false,
+    loading: false
 };
 
 const farmReducer = (state = initialState, action) => {
@@ -7,12 +9,16 @@ const farmReducer = (state = initialState, action) => {
         case 'SET_FARM':
             return {
                 ...state,
-                farm: action.payload
+                farm: action.payload,
+                fetched: true,
+                loading: false
             };
         case 'REMOVE_FARM':
             return {
                 ...state,
-                farm: null
+                farm: null,
+                fetched: false,
+                loading: false
             };
         default:
             return state;

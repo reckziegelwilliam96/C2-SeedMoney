@@ -1,9 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerFarm } from '../store/actions/farmActions';
 import Form from '../components/Form';
 
-const FarmRegistration = ({ onSubmit }) => {
+const FarmRegistration = () => {
     const businessId = useSelector((state) => state.business.business.id);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const formFields = [
         {name: 'size', type: 'number', label: 'Size'},
@@ -24,10 +28,11 @@ const FarmRegistration = ({ onSubmit }) => {
     ];
 
     const handleSubmit = (formData) => {
-        onSubmit({
+        dispatch(registerFarm({
             ...formData,
             businessId
-        });
+        }));
+        navigate('/');
     };
 
     return (

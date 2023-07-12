@@ -49,6 +49,8 @@ CREATE TABLE programs (
 CREATE TABLE grants (
   id SERIAL PRIMARY KEY,
   grant_name TEXT,
+  grant_link TEXT,
+  grant_funds NUMERIC,
   application_window BOOLEAN,
   program_description TEXT,
   applicant_eligibility TEXT,

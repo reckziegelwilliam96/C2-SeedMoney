@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SeedMoneyApi from '../SeedMoneyApi';
 import { Typography, Grid } from '@mui/material';
-import ApplicationCard from '../Profile/ApplicationCard';
+import Grants from '../Grant/Grant';
+import GrantList from '../Grant/GrantList';
 import { getRecommendedApplications } from './Recommendations';
 import { dashboardStyles } from './DashboardStyles';
 
 const Dashboard = () => {
   const farmerData = useSelector(state => state.farm.farm);
   const [recommendedApplications, setRecommendedApplications] = useState([]);
+  const [grants, setGrants] = useState([]);
 
   useEffect(() => {
     if (farmerData) {
@@ -18,9 +20,10 @@ const Dashboard = () => {
 
   const fetchRecommendedApplications = async () => {
     try {
-      const applications = await SeedMoneyApi.getApplications();
-      const recommended = getRecommendedApplications(applications, farmerData);
+      const grants = await SeedMoneyApi.getGrants();
+      const recommended = getRecommendedApplications(grants, farmerData);
       setRecommendedApplications(recommended);
+      setGrants(grants);
     } catch (error) {
       console.error('Error fetching recommended applications:', error);
     }
@@ -35,12 +38,12 @@ const Dashboard = () => {
         {recommendedApplications.length > 0 ? (
           recommendedApplications.map(application => (
             <Grid item xs={12} sm={6} md={4} key={application.id}>
-              <ApplicationCard applicationData={application} />
+              <Grants grants={application} />
             </Grid>
           ))
         ) : (
           <Typography variant="body1" sx={dashboardStyles.noApplications}>
-            No recommended applications found.
+            <GrantList grants={grants} />
           </Typography>
         )}
       </Grid>

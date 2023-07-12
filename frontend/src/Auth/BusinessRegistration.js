@@ -1,9 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerBusiness } from '../store/actions/businessActions';
 import Form from '../components/Form';
 
-const BusinessRegistration = ({onSubmit}) => {
+const BusinessRegistration = () => {
     const userId = useSelector((state) => state.user.user.id);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const fields = [
         {
@@ -25,10 +29,11 @@ const BusinessRegistration = ({onSubmit}) => {
 
     // Augment onSubmit to include userId
     const handleSubmit = (formData) => {
-        onSubmit({
+        dispatch(registerBusiness({
             ...formData,
             userId
-        });
+        }));
+        navigate('/');
     };
 
     return <Form fields={fields} onSubmit={handleSubmit} buttonText="Register" />;

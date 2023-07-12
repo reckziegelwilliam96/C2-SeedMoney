@@ -5,6 +5,8 @@ import NavBar from './NavBar';
 import Home from './Home';
 import NotFound from './NotFound';
 import Registration from '../Auth/Registration';
+import BusinessRegistration from '../Auth/BusinessRegistration';
+import FarmRegistration from '../Auth/FarmRegistration';
 import Login from '../Auth/Login';
 import Profile from '../Profile/Profile';
 import EditProfile from '../Profile/EditProfile';
@@ -23,6 +25,8 @@ const RoutesComponent = ({onLogout, logoutKey}) => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/addBusiness" element={<BusinessRegistration />} />
+        <Route path="/addFarm" element={<FarmRegistration />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:userId" element={<EditProfile />} />

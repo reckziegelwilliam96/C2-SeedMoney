@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { cardStyles } from '../ThemeStyles';
+import { cardStyles } from '../components/CardStyles';
 
 const ApplicationDetail = () => {
   const application = useSelector((state) => state.application.application);

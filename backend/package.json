@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "scraper": "node scraper/index.js"
+    "scraper": "node scraper/index.js",
+    "test-scraper": "node scraper/testScraper.js",
+    "clear-data": "node scraper/clearData.js"
   },
   "author": "",
   "license": "ISC",
