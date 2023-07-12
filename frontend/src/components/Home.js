@@ -7,7 +7,7 @@ import Program from '../Program/Program';
 import { Link } from 'react-router-dom';
 import { theme } from './ThemeStyles'; // Please adjust this import path to where your theme is actually located
 import SideColumn from './SideColumn';
-
+import { HomeContainer, Title, Slogan, WelcomeMessage, ButtonContainer, MainContent } from './HomeStyles'; // import the styles
 
 const Home = () => {
   const { user, token } = useSelector((state) => state.user);
@@ -15,49 +15,51 @@ const Home = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth="xl">
-        <Box my={4} display="flex" flexDirection="column" alignItems="center">
+        <HomeContainer>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3}>
               <SideColumn />
             </Grid>
-            <Grid item xs={12} md={8}>
-              <Paper elevation={3} sx={{ padding: 3, width: '100%', maxWidth: 400 }}>
-                <Typography variant="h4" gutterBottom align="center">
-                  SeedMoney
-                </Typography>
-                <Typography variant="subtitle1" align="center" sx={{ marginBottom: 2 }}>
-                  Plant tomorrow's financial seeds today.
-                </Typography>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={3} sx={{ padding: 3, width: '100%' }}>
+                <Title>SeedMoney</Title>
+                <Slogan>Plant tomorrow's financial seeds today.</Slogan>
                 {token && user ? (
                   <>
-                    <Typography variant="h6" align="center">
-                      Welcome back, {user?.first_name}
-                    </Typography>
-                    <hr />
-                    <Dashboard />
+                    <WelcomeMessage>Welcome back, {user?.first_name}</WelcomeMessage>
                     <hr />
                     <Program />
                   </>
                 ) : (
-                  <Box mt={2} display="flex" justifyContent="center">
+                  <ButtonContainer>
                     <Button
                       variant="contained"
                       color="primary"
                       component={Link}
                       to="/login"
-                      sx={{ marginRight: 2 }}
                     >
                       Log In
                     </Button>
                     <Button variant="contained" color="secondary" component={Link} to="/register">
                       Register
                     </Button>
-                  </Box>
+                  </ButtonContainer>
+                )}
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={3}>
+              <Paper elevation={3} sx={{ padding: 3, width: '100%' }}>
+                {token && user ? (
+                  <Dashboard />
+                ) : (
+                  <Typography variant="h6" className="title" style={{ fontSize: '1.5em', fontWeight: 'bold', color: theme.palette.primary.main }}>
+                    Please log in or register to view your dashboard.
+                  </Typography>
                 )}
               </Paper>
             </Grid>
           </Grid>
-        </Box>
+        </HomeContainer>
       </Container>
     </ThemeProvider>
   );

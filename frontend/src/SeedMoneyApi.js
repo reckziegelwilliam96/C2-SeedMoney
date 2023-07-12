@@ -126,9 +126,14 @@ class SeedMoneyApi {
       "tax_id": taxId,
       "user_id": userId
     };
-
+  
+    // Prepare the headers object
+    let headers = {
+      "Authorization": `Bearer ${SeedMoneyApi.token}`
+    };
+  
     // Make the POST request using our unified request function
-    let res = await this.request(`businesses/register`, data, "post");
+    let res = await this.request(`businesses/register`, data, "post", headers);
     // Return the response
     return res;
   }

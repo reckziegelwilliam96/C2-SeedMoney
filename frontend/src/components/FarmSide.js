@@ -5,12 +5,15 @@ function FarmCard({ farmData }) {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h5" component="div">Farm Information</Typography>
+        <Typography variant="h7" component="div">Farm Information</Typography>
         <Typography variant="body1">
           Size: {farmData.size}
         </Typography>
         <Typography variant="body1">
-          Farm Address: {farmData.farm_address}, {farmData.farm_city}, {farmData.farm_state}, {farmData.farm_zip_code}
+          Street: {farmData.farm_address}, 
+          City: {farmData.farm_city}, 
+          State: {farmData.farm_state}, 
+          Zip:{farmData.farm_zip_code}
         </Typography>
         <Typography variant="body1">
           Years of Experience: {farmData.years_of_experience}

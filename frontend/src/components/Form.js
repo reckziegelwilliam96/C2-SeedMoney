@@ -4,9 +4,9 @@ import { useTheme } from '@mui/material/styles';
 import FormErrors from './FormErrors';
 import { formStyles } from './FormStyles';
 
-const Form = ({ fields, onSubmit, buttonText }) => {
+const Form = ({ title, fields, onSubmit, buttonText, initialValues }) => {
   const theme = useTheme();
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(initialValues || {});
   const [errors, setErrors] = useState({});
 
   const handleChange = (event, name, type) => {
@@ -78,11 +78,12 @@ const Form = ({ fields, onSubmit, buttonText }) => {
   return (
     <Container maxWidth="sm">
       <Paper sx={{ padding: formStyles.root.padding, marginTop: theme.spacing(4), backgroundColor: formStyles.root.backgroundColor, color: formStyles.root.color }}>
+        {title && <Typography variant="h4" align="center" sx={{ marginBottom: theme.spacing(3) }}>{title}</Typography>}
         <form onSubmit={handleSubmit}>
           <FormErrors errors={errors} />
           {fields.map(field => (
-            <Box key={field.name} sx={{ marginBottom: theme.spacing(2) }}>
-              <Typography variant="body1" sx={{ color: theme.palette.secondary.main }}>{field.label}:</Typography>
+            <Box key={field.name} sx={{ marginBottom: theme.spacing(3) }}>
+              <Typography variant="body1" sx={{ color: theme.palette.secondary.main, marginBottom: theme.spacing(1) }}>{field.label}:</Typography>
               {field.type === 'multiselect' ? (
                 <Box>
                   {field.options.map(option => (
@@ -99,7 +100,7 @@ const Form = ({ fields, onSubmit, buttonText }) => {
                     <TextField
                       value={values[field.name]?.filter(option => option !== 'Other').join(', ')}
                       onChange={event => handleInputChange(event, field.name)}
-                      style={{ backgroundColor: formStyles.input.backgroundColor, borderColor: formStyles.input.borderColor }}
+                      style={{ backgroundColor: formStyles.input.backgroundColor, borderColor: formStyles.input.borderColor, marginTop: theme.spacing(1) }}
                     />
                   )}
                 </Box>
@@ -112,23 +113,41 @@ const Form = ({ fields, onSubmit, buttonText }) => {
                   <span style={{ color: theme.palette.secondary.main }}>{field.label}</span>
                 </label>
               ) : (
-                <input
+                <TextField
                   type={field.type || 'text'}
                   value={values[field.name] || ''}
                   onChange={event => handleChange(event, field.name, field.type)}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   style={{ backgroundColor: formStyles.input.backgroundColor, borderColor: formStyles.input.borderColor }}
                 />
               )}
             </Box>
           ))}
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ backgroundColor: formStyles.button.backgroundColor, color: formStyles.button.color, borderRadius: formStyles.button.borderRadius, '&:hover': { backgroundColor: theme.palette.accent1.dark } }}
+          <Box
+            display="flex"
+            justifyContent="center"
+            width="100%"
           >
-            {buttonText || 'Submit'}
-          </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ 
+                backgroundColor: formStyles.button.backgroundColor, 
+                color: formStyles.button.color, 
+                borderRadius: formStyles.button.borderRadius, 
+                '&:hover': { backgroundColor: theme.palette.accent1.dark }, 
+                padding: theme.spacing(1, 3),
+                size: "large",
+                marginTop: theme.spacing(2)
+              }}
+              fullWidth={false}
+            >
+              {buttonText || 'Submit'}
+            </Button>
+          </Box>
         </form>
       </Paper>
     </Container>

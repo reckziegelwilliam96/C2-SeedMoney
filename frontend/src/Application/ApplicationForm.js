@@ -42,7 +42,7 @@ const ApplicationForm = () => {
     };
 
     return (
-        <Form fields={fields} onSubmit={handleApplication} />
+        <Form title="Grant Application" fields={fields} onSubmit={handleApplication} buttonText="Apply for Grant"/>
     );
 };
 

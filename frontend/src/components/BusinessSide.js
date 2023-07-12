@@ -1,14 +1,16 @@
 import React from 'react';
 import { Card, CardContent, Typography } from '@mui/material';
-import { cardStyles } from './CardStyles';
 
 function BusinessCard({ businessData }) {
   return (
-    <Card sx={cardStyles.root}>
+    <Card>
       <CardContent>
-        <Typography variant="h5" component="div">Business Information</Typography>
-        <Typography variant="body1" sx={{ marginBottom: cardStyles.root.marginBottom }}>
-          Business Name: {businessData.business_name}
+        <Typography variant="h7" component="div">Business Profile</Typography>
+        <Typography variant="body1">
+          Name: {businessData.business_name}
+        </Typography>
+        <Typography variant="body1">
+          Address: {businessData.business_address}
         </Typography>
       </CardContent>
     </Card>

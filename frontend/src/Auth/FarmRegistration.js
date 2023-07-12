@@ -9,6 +9,13 @@ const FarmRegistration = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const initialValues = {
+        organicCertification: false,
+        sustainabilityPractices: false,
+        previousApplication: false,
+        grantOutcome: false
+      };
+
     const formFields = [
         {name: 'size', type: 'number', label: 'Size'},
         {name: 'yearsOfExperience', type: 'number', label: 'Years of Experience'},
@@ -36,7 +43,7 @@ const FarmRegistration = () => {
     };
 
     return (
-        <Form fields={formFields} onSubmit={handleSubmit} submitButtonText="Register" />
+        <Form title="Register Ranch or Farm" fields={formFields} initialValues={initialValues} onSubmit={handleSubmit} submitButtonText="Register" />
     );
 };
 
