@@ -66,7 +66,7 @@ A typical user flow for the website would be as follows:
 7. The user can view and edit their profile in the User Profile page.
 
 ### User Flow
-g)
+![User Flow](./user-flows-v1.jpg)
 
 ## 4. Technology Stack
 
@@ -149,27 +149,27 @@ The backend API of SeedMoney follows RESTful principles and provides several end
 #### User Endpoints
  - POST /auth/register: Registers a new user.
  - POST /auth/token: Logs in a user and returns a token.
- - GET /users/:id: Retrieves user details.
- - PATCH /users/:id: Updates user details.
+ - GET /users/:id Retrieves user details.
+ - PATCH /users/:id Updates user details.
 
 #### Business Endpoints
  - GET /users/:id/businesses: Retrieves a list of businesses associated with a user.
  - POST /businesses/register: Registers a new business for a user.
- - PATCH /businesses/:id: Updates a business.
+ - PATCH /businesses/:id Updates a business.
 
 #### Farm Endpoints
  - GET /users/:id/farms: Retrieves a list of farms associated with a user.
  - POST /farms/register: Registers a new farm for a user.
- - PATCH /farms/:id: Updates a farm.
+ - PATCH /farms/:id Updates a farm.
 
 #### Grant Endpoints
  - GET /grants: Retrieves a list of grants.
- - GET /grants/:id: Retrieves detailed information about a specific grant.
+ - GET /grants/:id Retrieves detailed information about a specific grant.
 
 #### Application Endpoints
  - GET /users/:id/applications: Retrieves a list of applications submitted by a user.
  - POST /applications: Creates a new application.
- - GET /applications/:id: Retrieves detailed information about a specific application.
- - PATCH /applications/:id: Updates an application.
- - DELETE /applications/:id: Deletes an application.
+ - GET /applications/:id Retrieves detailed information about a specific application.
+ - PATCH /applications/:id Updates an application.
+ - DELETE /applications/:id Deletes an application.
 
